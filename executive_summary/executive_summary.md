@@ -15,7 +15,9 @@ This project successfully produced a fully reproducible Python codebase that per
 The workflow integrates data preprocessing, metric computation, LLM-guided analysis, visualization generation, and automated report assembly into a unified, reproducible pipeline. Its modular three-stage design—clean data foundation, LLM-orchestrated analytical reasoning, and structured multi-format report generation—enables a fully automated and scalable transformation of raw structured data into actionable insights.
 
 #### Step 1 — Data Preprocessing
-Perform data loading, column name normalization, type conversion, missing value imputation, duplicate removal and produce a clean, analysis-ready dataset
+Perform data loading, column name normalization, type conversion, missing value imputation, duplicate removal and produce a clean, analysis-ready dataset.
+
+**Data Context Assumption**: Given the presence of the Mileage_KM column in the raw dataset, this analysis proceeds with the assumption that the input data represents transactions related to used cars. This context guides the relevance of specific metrics and visualizations.
 
 
 #### Step 2 — LLM Orchestration Layer
