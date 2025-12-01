@@ -1593,20 +1593,20 @@ def plot_transmission_trend_grouped(trans_trend_df: pd.DataFrame):
             "years": years,
             "transmissions": transmissions,
             
-            # 市场支配地位 (Dominance)
+            # Market dominance in the latest year
             "dominant_transmission_latest_year": str(top_latest_sales["transmission"]),
             "dominant_share_latest_year": f"{top_latest_sales['market_share']:.1f}%",
             
-            # 市场份额转变分析 (Market Shift Analysis)
+            # Market share shift (top gainer and loser)
             "top_market_share_gainer": top_share_gainer,
-            "top_gainer_shift": f"{trans_share_shift[top_share_gainer]:.1f}pp", # pp = percentage point
+            "top_gainer_shift": f"{trans_share_shift[top_share_gainer]:.1f}pp",  # pp = percentage points
             "top_market_share_loser": top_share_loser,
             "top_loser_shift": f"{trans_share_shift[top_share_loser]:.1f}pp",
             
-            # 增长指标 (Growth Metrics)
+            # Growth metrics (CAGR per transmission type)
             "transmission_cagr": {tr: f"{trans_cagr[tr]:.1f}%" for tr in transmissions},
             
-            # 原始数据 (包含市场份额供完整参考)
+            # Raw records including market share for full reference
             "market_share_records": df_metrics.to_dict("records"),
         },
     }
@@ -1803,32 +1803,27 @@ def plot_engine_size_sales_bar(eng_df: pd.DataFrame):
 
     # ---- 4. Analysis Summary (Optimized) ----
     
-    # 确保数据是按引擎排量类别排序的（保持原始顺序）
     df_sorted = eng_df.copy()
     total_sales_all = df_sorted["total_sales"].sum()
     
-    # 计算 Market Share
+    # Market Share
     df_sorted["market_share"] = (
         df_sorted["total_sales"] / total_sales_all
     ) * 100
     
-    # 根据销量重新排序，以确定 Top/Bottom
     df_sales_sorted = df_sorted.sort_values("total_sales", ascending=False)
     
     top_row = df_sales_sorted.iloc[0]
     bottom_row = df_sales_sorted.iloc[-1]
     
-    # 1. 量化主流地位 (Top Bin)
     top_bin = str(top_row["engine_bin"])
     top_val = float(top_row["total_sales"])
     top_share = float(top_row["market_share"])
     
-    # 2. 量化集中度 (Top N, e.g., Top 2)
     N_concentration = min(2, len(df_sales_sorted))
     top_n_sales = df_sales_sorted["total_sales"].head(N_concentration).sum()
     concentration_ratio = (top_n_sales / total_sales_all) * 100
     
-    # 3. 差距比率 (Top vs. Bottom)
     bottom_val = float(bottom_row["total_sales"])
     disparity_ratio = (top_val / bottom_val) if bottom_val > 0 else float('inf')
 
@@ -1847,19 +1842,15 @@ def plot_engine_size_sales_bar(eng_df: pd.DataFrame):
             ">4.0L": "performance or luxury engines",
         },
         "findings": {
-            # 1. 支配地位和主流排量
             "mainstream_engine_bin": top_bin,
-            "mainstream_bin_market_share": f"{top_share:.1f}%", # 主流排量占总销量的百分比
+            "mainstream_bin_market_share": f"{top_share:.1f}%",
             
-            # 2. 集中度指标
             "concentration_n": N_concentration,
-            "top_n_concentration_ratio": f"{concentration_ratio:.1f}%", # 前N个排量区间的总市场份额
+            "top_n_concentration_ratio": f"{concentration_ratio:.1f}%", 
             
-            # 3. 差距指标
             "least_popular_bin": str(bottom_row["engine_bin"]),
-            "sales_disparity_ratio_top_to_bottom": f"{disparity_ratio:.1f}x", # 最畅销与最不畅销排量的倍数差距
-            
-            # 4. 完整数据 (包含市场份额)
+            "sales_disparity_ratio_top_to_bottom": f"{disparity_ratio:.1f}x",
+
             "engine_bin_sales_with_share": [
                 {
                     "category": str(row["engine_bin"]),
@@ -1944,11 +1935,11 @@ def plot_engine_size_sales_bar(eng_df: pd.DataFrame) -> tuple[str, dict]:
 
     # ---- 6. Analysis Summary (Optimized) ----
     
-    # 确保数据是按销量降序排列，以便确定 Top/Bottom
+    # Ensure data is sorted in descending order of sales to identify top and bottom bins
     df_sales_sorted = eng_df.sort_values("total_sales", ascending=False).reset_index(drop=True)
     total_sales_all = df_sales_sorted["total_sales"].sum()
     
-    # 计算 Market Share
+    # Compute market share for each engine-size bin
     df_sales_sorted["market_share"] = (
         df_sales_sorted["total_sales"] / total_sales_all
     ) * 100
@@ -1956,18 +1947,18 @@ def plot_engine_size_sales_bar(eng_df: pd.DataFrame) -> tuple[str, dict]:
     top_row = df_sales_sorted.iloc[0]
     bottom_row = df_sales_sorted.iloc[-1]
     
-    # 1. 量化主流地位 (Top Bin)
+    # 1. Quantify the mainstream segment (Top bin)
     top_bin = str(top_row["engine_bin"])
     top_val = float(top_row["total_sales"])
     top_share = float(top_row["market_share"])
     
-    # 2. 量化集中度 (Top N, e.g., Top 2)
-    # Concentration on the top two most popular engine sizes
+    # 2. Quantify concentration (Top N, e.g., Top 2)
+    # Concentration on the top N most popular engine-size bins
     N_concentration = min(2, len(df_sales_sorted))
     top_n_sales = df_sales_sorted["total_sales"].head(N_concentration).sum()
     concentration_ratio = (top_n_sales / total_sales_all) * 100
     
-    # 3. 差距比率 (Top vs. Bottom)
+    # 3. Disparity ratio (Top vs. Bottom)
     bottom_val = float(bottom_row["total_sales"])
     disparity_ratio = (top_val / bottom_val) if bottom_val > 0 else float('inf')
 
@@ -1986,19 +1977,19 @@ def plot_engine_size_sales_bar(eng_df: pd.DataFrame) -> tuple[str, dict]:
             ">4.0L": "performance or luxury engines",
         },
         "findings": {
-            # 1. 支配地位和主流排量 (Dominance)
+            # 1. Dominance and mainstream displacement
             "mainstream_engine_bin": top_bin,
-            "mainstream_bin_market_share": f"{top_share:.1f}%", # 主流排量占总销量的百分比
+            "mainstream_bin_market_share": f"{top_share:.1f}%",  # Share of total sales captured by the mainstream bin
             
-            # 2. 集中度指标 (Concentration)
+            # 2. Concentration metrics
             "concentration_n": N_concentration,
-            "top_n_concentration_ratio": f"{concentration_ratio:.1f}%", # 前N个排量区间的总市场份额
+            "top_n_concentration_ratio": f"{concentration_ratio:.1f}%",  # Combined market share of the top N engine-size bins
             
-            # 3. 差距指标 (Disparity)
+            # 3. Disparity metrics
             "least_popular_bin": str(bottom_row["engine_bin"]),
-            "sales_disparity_ratio_top_to_bottom": f"{disparity_ratio:.1f}x", # 最畅销与最不畅销排量的倍数差距
+            "sales_disparity_ratio_top_to_bottom": f"{disparity_ratio:.1f}x",  # Sales multiple between best- and worst-selling bins
             
-            # 4. 完整数据 (包含市场份额供 LLM 撰写分析)
+            # 4. Full data with market share (for LLM narrative generation)
             "engine_bin_sales_with_share": [
                 {
                     "category": str(row["engine_bin"]),

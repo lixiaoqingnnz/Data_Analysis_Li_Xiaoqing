@@ -79,7 +79,7 @@ Replace the API key in `.env` with your actual OPENROUTER API key.
 Once the environment is activated, you can execute the entire data pipeline (loading, processing, analyzing, and reporting) by running the main script:
 
 ```bash
-python main.py --file data/raw/BMW_sales_data_(2020-2024).xlsx
+python main.py
 ```
 
 You should be able to see your final reports in `reports/final_report.pdf`

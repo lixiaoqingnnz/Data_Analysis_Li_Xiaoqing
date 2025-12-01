@@ -1,16 +1,3 @@
-"""
-analysis_module.py
-
-封装所有与 CatBoost 销量预测相关的数据处理逻辑：
-- 原始明细数据聚合
-- 构造 lag 特征
-- 使用 CatBoost 训练 & 验证（2020-2023 训练，2024 验证）
-- 使用 2020-2024 全部数据重训模型，预测 2025
-- 生成 2024 实际 vs 2025 预测 的对比表
-- 从各个维度（Region / Fuel Type / Transmission / Color）中选取 Top3
-- 生成统一的 Top3 汇总表（DataFrame + Markdown）
-"""
-
 import warnings
 from typing import Dict, Tuple
 
@@ -32,52 +19,70 @@ def catboost_forecast_top3(
     df: pd.DataFrame,
 ) -> Tuple[Dict[str, float], float, pd.DataFrame, str, Dict]:
     """
-    使用 CatBoost 对销量进行时间序列式建模，并输出 2024 实际 vs 2025 预测的
-    Top3 细分市场汇总表。
+    Train a CatBoost-based time-series style model for sales forecasting and
+    generate a Top 3 segment summary comparing 2024 actuals vs. 2025 forecasts.
 
-    输入:
-        df: 清洗后的原始“行级”数据 DataFrame，至少包含以下列：
-            ['year','model','region','fuel_type','transmission','color',
-             'engine_size_l','mileage_km','price_usd','sales_volume']
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Cleaned row-level dataset containing at least the following columns:
+        [
+            'year', 'model', 'region', 'fuel_type', 'transmission', 'color',
+            'engine_size_l', 'mileage_km', 'price_usd', 'sales_volume'
+        ]
 
-    返回:
-        metrics_2024: dict
-            CatBoost 在 2024 年验证集上的指标（MAE, RMSE, MAPE, R2 等）。
+    Returns
+    -------
+    metrics_2024 : dict
+        Evaluation metrics of CatBoost on the 2024 validation set
+        (MAE, RMSE, MAPE, R2, and percentage-based metrics).
 
-        total_2025: float
-            使用 2020-2024 所有数据训练的 CatBoost 模型，
-            对 2025 年总销量的预测（所有组合求和）。
+    total_2025 : float
+        Forecasted 2025 total sales (sum across all combinations), using
+        a CatBoost model retrained on all data from 2020–2024.
 
-        combined_top3_df: pd.DataFrame
-            统一的 Top3 汇总表（已商业化改名），字段为：
-                - Segment Category
-                - Segment Name
-                - 2024 Actual Sales
-                - 2025 Forecast Sales
-                - Growth Rate (%)
-              最后一行为 Overall / Total Market，总销量与整体增长率。
+    combined_top3_df : pd.DataFrame
+        Unified Top 3 segment summary table (display-ready, business naming),
+        with the following columns:
+            - Segment Category
+            - Segment Name
+            - 2024 Actual Sales
+            - 2025 Forecast Sales
+            - Growth Rate (%)
+        The last row is the overall total market line, with total sales and
+        overall growth rate.
 
-        md_combined_top3: str
-            combined_top3_df 的 Markdown 表格形式，适合直接写入 .md
-            然后由 main.py 的 Markdown 生成脚本转换成 PDF。
+    md_combined_top3 : str
+        Markdown representation of combined_top3_df, suitable for direct
+        insertion into a .md report and subsequent conversion to PDF
+        by the main report-generation pipeline.
 
-        analysis_summary: dict
-            提供给 LLM 生成自然语言分析用的结构化摘要（使用数值 raw 版）。
+    analysis_summary : dict
+        Structured numerical summary for LLM-based narrative generation.
+        Contains raw (non-formatted) values for model performance, total
+        market growth, and detailed Top 3 segment records.
     """
     # -----------------------------------------------------
-    # 全局特征配置（仅在此函数及其内部子函数中使用）
+    # Local feature configuration (only used within this function)
     # -----------------------------------------------------
     CAT_FEATURES = ["model", "region", "fuel_type", "transmission", "color"]
     BASE_NUM_FEATURES = ["year", "engine_size_l", "mileage_km", "price_usd"]
 
     # =====================================================
-    # 2. 工具函数定义（仅在本函数内部使用）
+    # 2. Helper function definitions (internal use only)
     # =====================================================
     def load_and_aggregate_from_df(df_raw: pd.DataFrame) -> pd.DataFrame:
         """
-        将“行级明细数据”聚合到
-        year + model + region + fuel_type + transmission + color
-        这一层级上，便于做时间序列 + 类别组合建模。
+        Aggregate row-level transaction data to the combination level:
+
+        Grouping keys:
+            year + model + region + fuel_type + transmission + color
+
+        Aggregations:
+            - engine_size_l, mileage_km, price_usd: mean
+            - sales_volume: sum
+
+        This provides a compact time-series per segment for modeling.
         """
         group_cols = ["year", "model", "region", "fuel_type", "transmission", "color"]
         agg_df = (
@@ -95,7 +100,19 @@ def catboost_forecast_top3(
 
     def compute_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, float]:
         """
-        计算通用回归指标（含百分率版本）。
+        Compute generic regression metrics and their percentage variants.
+
+        Metrics:
+            - MAE
+            - RMSE
+            - MedianAE
+            - MAPE (percentage)
+            - R2
+
+        Percentage metrics relative to the mean of y_true:
+            - MAE_pct
+            - RMSE_pct
+            - MedianAE_pct
         """
         mae = mean_absolute_error(y_true, y_pred)
         rmse = root_mean_squared_error(y_true, y_pred)
@@ -110,6 +127,7 @@ def catboost_forecast_top3(
         if len(y_true) > 1:
             r2 = r2_score(y_true, y_pred)
         else:
+            # R2 is not meaningful with only a single observation
             r2 = np.nan
 
         mean_y = y_true.mean()
@@ -130,13 +148,26 @@ def catboost_forecast_top3(
 
     def add_lag_features(agg_df: pd.DataFrame):
         """
-        针对每个 (model, region, fuel_type, transmission, color) 组合，
-        构造销量和价格/里程的 lag 特征。
+        Construct lag-based features for each segment defined by:
+            (model, region, fuel_type, transmission, color).
 
-        返回:
-            df_lagged   : 含 lag 特征的数据
-            num_features: 数值特征列表
-            feature_cols: 全部特征列表（类别 + 数值）
+        Created features:
+            - sales_last1, sales_last2
+            - sales_avg3 (3-year rolling average)
+            - sales_growth (growth from last2 to last1)
+            - price_last1, price_trend
+            - mileage_last1, mileage_trend
+
+        Returns
+        -------
+        df_lagged : pd.DataFrame
+            Aggregated data with lag features added.
+
+        num_features : list of str
+            List of numeric feature names including lag-based features.
+
+        feature_cols : list of str
+            Full feature list (categorical + numeric) for model training.
         """
         df_lagged = agg_df.sort_values(
             ["model", "region", "fuel_type", "transmission", "color", "year"]
@@ -144,21 +175,21 @@ def catboost_forecast_top3(
 
         group_cols = ["model", "region", "fuel_type", "transmission", "color"]
 
-        # 前 1 年和前 2 年销量
+        # Sales lags (t-1, t-2)
         df_lagged["sales_last1"] = df_lagged.groupby(group_cols)["sales_volume"].shift(1)
         df_lagged["sales_last2"] = df_lagged.groupby(group_cols)["sales_volume"].shift(2)
 
-        # 滚动 3 年平均销量
+        # Rolling 3-year average sales
         df_lagged["sales_avg3"] = df_lagged.groupby(group_cols)["sales_volume"].transform(
             lambda x: x.rolling(3).mean()
         )
 
-        # 销量增长率
+        # Sales growth rate
         df_lagged["sales_growth"] = (
             df_lagged["sales_last1"] - df_lagged["sales_last2"]
         ) / df_lagged["sales_last2"]
 
-        # 价格 & 里程滞后与趋势
+        # Price and mileage lags and trends
         df_lagged["price_last1"] = df_lagged.groupby(group_cols)["price_usd"].shift(1)
         df_lagged["price_trend"] = (
             df_lagged["price_usd"] - df_lagged["price_last1"]
@@ -187,7 +218,10 @@ def catboost_forecast_top3(
 
     def build_catboost_model() -> CatBoostRegressor:
         """
-        仅使用一个 CatBoostRegressor 作为核心模型。
+        Create a CatBoostRegressor instance as the core forecasting model.
+
+        The model is configured with RMSE as both loss function and
+        evaluation metric, and uses a fixed random seed for reproducibility.
         """
         return CatBoostRegressor(
             depth=8,
@@ -202,8 +236,15 @@ def catboost_forecast_top3(
 
     def train_catboost_2020_2023_2024(df_lagged: pd.DataFrame, feature_cols):
         """
-        使用 2020-2023 作为训练集，2024 作为验证集，
-        用于评估 CatBoost 在最新一年的预测表现。
+        Train CatBoost using 2020–2023 as the training set and validate on 2024.
+
+        This function evaluates the model on the latest available year
+        (2024) to measure predictive performance before forecasting 2025.
+
+        Returns
+        -------
+        metrics_2024 : dict
+            Evaluation metrics of CatBoost on 2024.
         """
         df_clean = df_lagged.dropna(subset=feature_cols + ["sales_volume"]).copy()
 
@@ -227,15 +268,27 @@ def catboost_forecast_top3(
 
     def build_2025_features_from_lagged(df_lagged: pd.DataFrame, feature_cols):
         """
-        使用每个组合在 2024 年的最后一条记录为基础，
-        构造 2025 年的特征行（进行 1 步外推）。
+        Construct 2025 feature rows by extrapolating from the last available
+        record (year 2024) for each segment.
+
+        Logic:
+            - Use the most recent row per (model, region, fuel_type, transmission, color)
+            - Require complete lag information to ensure valid extrapolation
+            - Shift sales-related lag features forward by one year
+            - Reuse price and mileage trend information
+
+        Returns
+        -------
+        feat_2025 : pd.DataFrame
+            Feature set for 2025, aligned with feature_cols and including
+            an empty sales_volume column (target unknown).
         """
         group_cols = ["model", "region", "fuel_type", "transmission", "color"]
 
         df_sorted = df_lagged.sort_values(group_cols + ["year"])
         last_rows = df_sorted.groupby(group_cols, as_index=False).tail(1)
 
-        # 要求有完整的 lag 信息，否则无法安全外推
+        # Require complete lag information for safe extrapolation
         last_rows = last_rows.dropna(
             subset=["sales_last1", "sales_last2", "sales_avg3", "price_last1", "mileage_last1"]
         )
@@ -267,7 +320,7 @@ def catboost_forecast_top3(
             new_row["price_trend"] = row.get("price_trend", 0.0)
             new_row["mileage_trend"] = row.get("mileage_trend", 0.0)
 
-            # 2025 年真实销量未知
+            # Actual 2025 sales are unknown
             new_row["sales_volume"] = np.nan
 
             rows_2025.append(new_row)
@@ -282,13 +335,23 @@ def catboost_forecast_top3(
 
     def retrain_catboost_full_and_predict_2025(df_lagged: pd.DataFrame, feature_cols):
         """
-        使用 2020-2024 全部数据训练 CatBoost，并对 2025 所有组合进行预测；
-        然后按以下维度聚合：
-            - model
-            - region
-            - fuel_type
-            - transmission
-            - color
+        Retrain CatBoost on the full 2020–2024 dataset and forecast 2025.
+
+        Steps:
+            - Clean rows with valid features and target (sales_volume)
+            - Retrain CatBoost on all years 2020–2024
+            - Construct 2025 feature set from lagged data
+            - Predict 2025 row-level sales
+            - Aggregate predictions by:
+                model / region / fuel_type / transmission / color
+
+        Returns
+        -------
+        total_2025 : float
+            Sum of predicted 2025 sales across all combinations.
+
+        by_model_2025, by_region_2025, by_fuel_2025, by_trans_2025, by_color_2025 :
+            Aggregated prediction tables by each dimension.
         """
         df_clean = df_lagged.dropna(subset=feature_cols + ["sales_volume"]).copy()
 
@@ -351,8 +414,16 @@ def catboost_forecast_top3(
         key_col: str,
     ) -> pd.DataFrame:
         """
-        输入：2024 实际 + 2025 预测（按同一维度聚合后的表），
-        输出：含绝对增长和增长率的对比表。
+        Build a comparison table between 2024 actual and 2025 forecast.
+
+        Inputs are 2024 and 2025 aggregated tables on the same dimension,
+        e.g. region, fuel_type, transmission, or color.
+
+        The output includes:
+            - 2024 actual sales
+            - 2025 forecast sales
+            - Absolute growth
+            - Growth rate (%)
         """
         df_2024 = df_2024.rename(columns={"sales_volume": "sales_2024"})
         df_2025 = df_2025.rename(columns={"pred_sales_volume_2025_catboost": "sales_2025"})
@@ -366,7 +437,7 @@ def catboost_forecast_top3(
             np.nan,
         )
 
-        # 默认按 2025 预测销量降序排序
+        # Sort by 2025 forecasted sales in descending order
         merged = merged.sort_values("sales_2025", ascending=False)
 
         return merged[[key_col, "sales_2024", "sales_2025", "growth_abs", "growth_pct"]]
@@ -375,8 +446,19 @@ def catboost_forecast_top3(
         tables: Dict[str, pd.DataFrame]
     ) -> pd.DataFrame:
         """
-        从每个维度（model / region / fuel_type / transmission / color）的对比表中，
-        按 2025 预测销量降序选取 Top3，并合并为统一的一张表。
+        Select Top 3 segments per dimension and merge into a unified table.
+
+        Dimensions:
+            - model
+            - region
+            - fuel_type
+            - transmission
+            - color
+
+        The resulting table has one row per top segment instance, with
+        standardized fields:
+            segment_type, segment_name,
+            sales_2024, sales_2025, growth_abs, growth_pct
         """
         tbl_model = tables["model"].copy()
         tbl_region = tables["region"].copy()
@@ -384,14 +466,14 @@ def catboost_forecast_top3(
         tbl_trans = tables["transmission"].copy()
         tbl_color = tables["color"].copy()
 
-        # 各维度按 sales_2025 排序后取前 3
+        # For each dimension, sort by 2025 forecast and keep Top 3
         tbl_model_top3 = tbl_model.sort_values("sales_2025", ascending=False).head(3)
         tbl_region_top3 = tbl_region.sort_values("sales_2025", ascending=False).head(3)
         tbl_fuel_top3 = tbl_fuel.sort_values("sales_2025", ascending=False).head(3)
         tbl_trans_top3 = tbl_trans.sort_values("sales_2025", ascending=False).head(3)
         tbl_color_top3 = tbl_color.sort_values("sales_2025", ascending=False).head(3)
 
-        # 加上 segment_type / segment_name
+        # Attach segment_type / segment_name fields and remove original key columns
         df_model = tbl_model_top3.assign(
             segment_type="Model",
             segment_name=tbl_model_top3["model"],
@@ -430,17 +512,17 @@ def catboost_forecast_top3(
         return combined_top3_df
 
     # =====================================================
-    # 3. 主流程：从原始 df 到 Top3 表格 + Markdown
+    # 3. Main flow: from raw df to Top 3 tables and Markdown
     # =====================================================
 
-    # 3.1 聚合到组合层并构造 lag 特征
+    # 3.1 Aggregate to segment level and construct lag features
     agg_df = load_and_aggregate_from_df(df)
     df_lagged, _num_features, feature_cols = add_lag_features(agg_df)
 
-    # 3.2 使用 2020-2023 训练，2024 验证，得到 metrics_2024
+    # 3.2 Train on 2020–2023 and validate on 2024 to obtain metrics_2024
     metrics_2024 = train_catboost_2020_2023_2024(df_lagged, feature_cols)
 
-    # 3.3 使用 2020-2024 全部数据重训 CatBoost，预测 2025，并按维度聚合
+    # 3.3 Retrain CatBoost on full 2020–2024 data and forecast 2025 by segment
     (
         total_2025,
         by_model_2025,
@@ -450,7 +532,7 @@ def catboost_forecast_top3(
         by_color_2025,
     ) = retrain_catboost_full_and_predict_2025(df_lagged, feature_cols)
 
-    # 3.4 计算 2024 实际销量（分维度）
+    # 3.4 Compute 2024 actual sales by dimension
     df_2024 = agg_df[agg_df["year"] == 2024]
 
     by_model_2024 = df_2024.groupby("model")["sales_volume"].sum().reset_index()
@@ -459,14 +541,14 @@ def catboost_forecast_top3(
     by_trans_2024 = df_2024.groupby("transmission")["sales_volume"].sum().reset_index()
     by_color_2024 = df_2024.groupby("color")["sales_volume"].sum().reset_index()
 
-    # 3.4.x 总体总销量与总体增长率（供“总计”行 & summary 使用）
+    # 3.4.x Total market sales and overall growth rate (for summary and final row)
     total_sales_2024 = df_2024["sales_volume"].sum()
     overall_growth_abs = total_2025 - total_sales_2024
     overall_growth_pct = (
         overall_growth_abs / total_sales_2024 * 100 if total_sales_2024 > 0 else 0
     )
 
-    # 3.5 生成 2024 vs 2025 对比表（完整的）
+    # 3.5 Build 2024 vs. 2025 comparison tables for each dimension
     table_model = make_comparison_table(by_model_2024, by_model_2025, "model")
     table_region = make_comparison_table(by_region_2024, by_region_2025, "region")
     table_fuel = make_comparison_table(by_fuel_2024, by_fuel_2025, "fuel_type")
@@ -481,10 +563,10 @@ def catboost_forecast_top3(
         "color": table_color,
     }
 
-    # 3.6 只选择各维度 Top3，并合并为一张统一的表（raw 数值版）
+    # 3.6 Select the Top 3 segments per dimension and combine into a single raw table
     combined_top3_df_raw = select_top3_segment_tables(tables)
 
-    # ======= display 版：改列名 + 格式化，供 Markdown / 报告使用 =======
+    # ======= Display version: rename columns and format values for reporting =======
     combined_top3_df_display = combined_top3_df_raw.rename(columns={
         "segment_type": "Segment Category",
         "segment_name": "Segment Name",
@@ -494,12 +576,12 @@ def catboost_forecast_top3(
         "growth_pct": "Growth Rate (%)",
     })
 
-    # 删除 Absolute Growth (Units) 列，只保留增长率
+    # Drop Absolute Growth (Units); keep only percentage growth for display
     combined_top3_df_display = combined_top3_df_display[
         ["Segment Category", "Segment Name", "2024 Actual Sales", "2025 Forecast Sales", "Growth Rate (%)"]
     ]
 
-    # 数字格式化为千分位，增长率格式为 xx.xx%
+    # Format numbers with thousand separators and percentage with two decimals
     combined_top3_df_display["2024 Actual Sales"] = combined_top3_df_display[
         "2024 Actual Sales"
     ].apply(lambda x: f"{x:,.0f}")
@@ -510,7 +592,7 @@ def catboost_forecast_top3(
         "Growth Rate (%)"
     ].apply(lambda x: f"{x:.2f}%")
 
-    # 在表格底部追加总体总销量行
+    # Append an overall total market row at the bottom
     total_row = {
         "Segment Category": "Overall",
         "Segment Name": "Total Market",
@@ -524,17 +606,17 @@ def catboost_forecast_top3(
         ignore_index=True,
     )
 
-    # 3.7 生成 Markdown 表格文本，main.py 直接用即可写入 .md
+    # 3.7 Convert the display table to Markdown for direct insertion into a report
     md_combined_top3 = combined_top3_df_display.to_markdown(index=False)
 
     # -----------------------------------------------------
-    # 4. Analysis Summary (for LLM) —— 用 raw 数值版
+    # 4. Analysis summary (for LLM consumption) — uses raw numeric data
     # -----------------------------------------------------
 
-    # Top Predicted Segment (Max 2025 sales)
+    # Top segment by predicted 2025 sales
     top_2025_segment = combined_top3_df_raw.sort_values("sales_2025", ascending=False).iloc[0]
 
-    # Top Growth Segment (Max growth_pct, 排除 NaN)
+    # Top segment by growth rate (excluding NaN growth_pct)
     df_growth = combined_top3_df_raw.dropna(subset=["growth_pct"])
     top_growth_segment = (
         df_growth.sort_values("growth_pct", ascending=False).iloc[0]
@@ -542,7 +624,7 @@ def catboost_forecast_top3(
         else None
     )
 
-    # Top3 记录（raw 数值版）
+    # Full Top 3 records (raw numeric version)
     top3_records = combined_top3_df_raw.to_dict("records")
 
     analysis_summary = {
@@ -556,21 +638,21 @@ def catboost_forecast_top3(
             "sales growth in 2025."
         ),
         "findings": {
-            # 1. 模型可靠性与总体趋势
+            # 1. Model reliability and overall trend
             "model_validation_metrics_2024": metrics_2024,
             "forecast_period": "2025 vs 2024 Actual",
             "total_sales_2024_actual": float(total_sales_2024),
             "total_sales_2025_predicted": float(total_2025),
             "overall_growth_pct": f"{overall_growth_pct:.2f}%",
 
-            # 2. 关键细分市场焦点 (最高销量预测)
+            # 2. Key segment focus (highest predicted 2025 sales)
             "segment_with_highest_2025_sales": {
                 "type": str(top_2025_segment["segment_type"]),
                 "name": str(top_2025_segment["segment_name"]),
                 "predicted_sales": float(top_2025_segment["sales_2025"]),
             },
 
-            # 3. 关键细分市场焦点 (最高增长潜力)
+            # 3. Key segment focus (highest growth potential)
             "segment_with_highest_growth_pct": (
                 {
                     "type": str(top_growth_segment["segment_type"]),
@@ -581,13 +663,14 @@ def catboost_forecast_top3(
                 else {"status": "N/A", "reason": "No segments showed significant positive growth"}
             ),
 
-            # 4. Top 3 完整对比数据 (供 LLM 撰写详细分析)
+            # 4. Full Top 3 comparison records (for detailed LLM commentary)
             "top3_segment_comparison_records": top3_records,
             "sales_unit": "units",
         },
     }
 
-    # 5. 返回所有结果（DataFrame 返回的是 display 版，更适合报告直接用）
+    # 5. Return all outputs
+    #    DataFrame returned is the display version for direct reporting use.
     return (
         metrics_2024,
         float(total_2025),

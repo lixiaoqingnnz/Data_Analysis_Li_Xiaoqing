@@ -1,4 +1,3 @@
-
 import os
 import json
 import logging
@@ -11,34 +10,36 @@ load_dotenv()
 
 logger = logging.getLogger(__name__)
 
+
 class LLMOrchestrator:
     """
-    Thin wrapper around OpenRouter chat API for BMW used-car analytics.
+    Lightweight wrapper around the OpenRouter chat API for
+    BMW used-car analytics workflows.
 
     Typical usage:
         orchestrator = LLMOrchestrator()
-        explanation = orchestrator.explain_chart(chart_summary)
-        full_report = orchestrator.full_market_analysis(list_of_summaries)
+        explanation = orchestrator.generate_chart_narrative(section_title, chart_summary)
+        full_report = orchestrator.generate_executive_summary(list_of_summaries)
     """
 
     def __init__(
         self,
         api_key: Optional[str] = None,
-        model: str = "x-ai/grok-4.1-fast:free",
+        model: str = "openai/gpt-oss-20b:free",
         timeout: int = 30,
         base_url: str = "https://openrouter.ai/api/v1/chat/completions",
         default_title: str = "bmw-used-car-analytics",
     ) -> None:
-        
         """
-        Initialize the orchestrator.
+        Initialize the LLMOrchestrator.
 
         Args:
-            api_key: OpenRouter API key. If None, tries env var OPENROUTER_API_KEY.
-            model: Default model identifier on OpenRouter.
+            api_key: OpenRouter API key. If None, tries environment variable
+                OPENROUTER_API_KEY.
+            model: Default model identifier used for OpenRouter requests.
             timeout: HTTP request timeout in seconds.
-            base_url: OpenRouter chat completions endpoint.
-            default_title: Default X-Title header for OpenRouter.
+            base_url: OpenRouter chat completions endpoint URL.
+            default_title: Default value for the X-Title header in OpenRouter.
         """
         self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
         if not self.api_key:
@@ -59,17 +60,22 @@ class LLMOrchestrator:
         max_tokens: Optional[int] = None,
     ) -> str:
         """
-        Internal helper to call OpenRouter chat API.
+        Call the OpenRouter chat API with a given message sequence.
 
         Args:
-            messages: OpenAI-style message list.
-            model: Optional override of default model.
-            title: Optional request title for OpenRouter.
-            temperature: Sampling temperature.
-            max_tokens: Optional max tokens for completion.
+            messages: List of OpenAI-style chat messages, each containing
+                a 'role' and 'content' field.
+            model: Optional model identifier to override the default model.
+            title: Optional request title, used for the X-Title header.
+            temperature: Sampling temperature for the generation.
+            max_tokens: Optional maximum number of tokens in the completion.
 
         Returns:
-            str: Assistant message content.
+            The assistant's reply content as a string.
+
+        Raises:
+            RuntimeError: If the HTTP request fails, the API returns a non-200
+                status, or the response structure is unexpected.
         """
         payload: Dict[str, Any] = {
             "model": model or self.model,
@@ -112,7 +118,7 @@ class LLMOrchestrator:
         except (KeyError, IndexError) as e:
             logger.error("Unexpected OpenRouter response structure: %s", data, exc_info=True)
             raise RuntimeError(f"Unexpected OpenRouter response structure: {data}") from e
-        
+
     # ---- 2. High-level Business Logic (Map Step) ----
     def generate_chart_narrative(
         self, 
@@ -121,11 +127,13 @@ class LLMOrchestrator:
         specific_instruction: str = ""
     ) -> str:
         """
-        Generates a specific section analysis based on a chart and statistical summary.
-        The output is pure text analysis, without any Markdown headings or image links.
+        Generate a narrative analysis for a specific report section
+        based on chart metrics and statistical summaries.
+
+        The output is intended to be plain text without Markdown headings
+        or image links, suitable for direct insertion into the report.
         """
-        
-        # 将复杂对象转为字符串
+        # Convert complex objects into a JSON-formatted string for prompt context
         summary_str = json.dumps(data_summary, indent=2, default=str) if not isinstance(data_summary, str) else data_summary
 
         system_prompt = (
@@ -162,16 +170,17 @@ class LLMOrchestrator:
     # ---- 3. High-level Business Logic (Reduce Step) ----
     def generate_executive_summary(self, all_narratives: List[str]) -> str:
         """
-        Synthesizes all individual section narratives into a cohesive Executive Summary.
+        Generate an executive summary by synthesizing multiple
+        section-level narratives into a coherent, high-level overview.
         """
-        
-        # 拼接所有的分析段落作为上下文
+        # Concatenate all section narratives as context for the summary
         joined_context = "\n\n".join(all_narratives)
 
         system_prompt = (
-            "You are the Chief Strategy Officer at BMW. "
-            "Your goal is to synthesize a high-level Executive Summary based on detailed technical reports."
-        )
+            "You are a Senior Data Analyst at BMW, specializing in the **global used-car market**. "
+            "Your task is to write a concise, professional analysis for a business report section. "
+            "Output MUST be plain text, do NOT use any Markdown headings, bolding, lists, or image links."
+            )
 
         user_prompt = f"""
         ### Context
@@ -180,11 +189,11 @@ class LLMOrchestrator:
         {joined_context}
 
         ### Task
-        Write an **Executive Summary** (approx. 300-400 words) with the following structure:
+        Write an **Summary** (approx. 300-400 words) with the following structure:
         
         1.  **Overview**: A brief statement on the overall dataset scope and market health.
         2.  **Key Findings**: Summarize the 3 most important trends identified across the reports.
-        3.  **Strategic Recommendations**: Provide 3 concrete, actionable business recommendations based on the data (e.g., pricing adjustments, inventory shifts)[cite: 10, 18].
+        3.  **Strategic Recommendations**: Provide 3 concrete, actionable business recommendations based on the data (e.g., pricing adjustments, inventory shifts)
         
         Do not repeat the detailed numbers unnecessarily; focus on the "So What?".
         """
@@ -194,5 +203,5 @@ class LLMOrchestrator:
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_prompt}
             ],
-            temperature=0.3 # 稍微增加创造性以生成更好的建议
+            temperature=0.3  # Slightly higher temperature to encourage richer recommendations
         )

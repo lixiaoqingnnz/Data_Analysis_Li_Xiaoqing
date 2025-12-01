@@ -41,7 +41,7 @@ The LLM orchestration layer is designed to fully satisfy all required analytic c
 ## 3. Model Selection
 
 ### 3.1 LLM Model Selection 
-The project uses the **“x-ai/grok-4.1-fast:free”** model via **OpenRouter API** since this model is currently ranked No.1 on OpenRouter for cost-free usage and provides strong performance for narrative generation with fast response times.
+The project uses the **“x-ai/grok-4.1-fast:free”** model via **OpenRouter API** as this model currently offers one of the strongest performance levels among the freely accessible large models on OpenRouter. 
 
 ### 3.2 Machine Learning Forecast Model Selection (Creative Insight Extension)
 ![Machine Learning Forecast Model Performance](model_performance_2024_with_lag.png){.img-mid}

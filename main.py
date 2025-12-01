@@ -250,7 +250,7 @@ def main(file_path: str):
     # SECTION 4 — Sales Forecast and Strategic Segment Growth (2025)
     # =========================================================
     section_title_forecast = "Sales Forecast and Strategic Segment Growth (2025)"
-    subsection_title = "Strategic Top Segment Prediction (2024 Actual vs 2025 Forecast)"
+    # subsection_title = "Strategic Top Segment Prediction (2024 Actual vs 2025 Forecast)"
     metrics_2024, total_2025, combined_top3_df, md_combined_top3, summary_forecast = catboost_forecast_top3(df_clean)
     narrative_12 = orchestrator.generate_chart_narrative(
         section_title=subsection_title,
@@ -258,13 +258,26 @@ def main(file_path: str):
     )
     report_data.append({
         "section_title": section_title_forecast,
-        "subsection_title": subsection_title,
+        # "subsection_title": subsection_title,
         "chart_path": "", 
         "narrative": narrative_12,
         "table_content": md_combined_top3, 
     })
     logging.info(">>> [4.1 Sales forecase and strategic] Data processed, table generated, and narrative created.")
 
+    # =========================================================
+    # SECTION 5 — Summary
+    # =========================================================
+    section_title_summary = "Summary"
+    all_narratives = [narrative_1, narrative_2, narrative_3, narrative_4, narrative_5, narrative_6, narrative_7, narrative_8, narrative_9, narrative_10, narrative_11, narrative_12]
+    narrative_summary = orchestrator.generate_executive_summary(
+        all_narratives = all_narratives
+    )
+    report_data.append({
+        "section_title": section_title_summary,
+        "narrative": narrative_summary,
+    })
+    logging.info(">>> [5 Summary] Narrative created.")
 
     logging.info("--- [Step 3] Reporting data generation completed ---")
     # temp save report data 
@@ -286,5 +299,5 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
     # run main function 
-    report_data = main(args.file)
+    # report_data = main(args.file)
     generate_full_report()
