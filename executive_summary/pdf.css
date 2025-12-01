@@ -1,0 +1,120 @@
+/* ----------- Control Page Margins ----------- */
+@page {
+    size: A4;
+    margin: 20mm;
+}
+
+/* ----------- Basic Body Style ----------- */
+body {
+    font-family: "Calibri", "Arial", sans-serif;
+    font-size: 10.5pt;      /* 原11.5 → 小一号 */
+    line-height: 1.38;
+    margin: 0;
+    counter-reset: figure-counter;
+}
+
+/* ----------- Headings ----------- */
+/* h1 作为最高级标题 */
+h1 {
+    font-family: "Calibri", "Arial", sans-serif;
+    font-size: 16pt;        /* 原18pt → 小一号 */
+    font-weight: 600;
+    margin-top: 0.75em;
+    margin-bottom: 0.35em;
+}
+
+/* h2 蓝色风格 */
+h2 {
+    font-family: "Calibri", "Arial", sans-serif;
+    font-size: 13.5pt;      /* 原15pt */
+    font-weight: 600;
+    color: #1c69d4a7;
+    margin-top: 0.65em;
+    margin-bottom: 0.28em;
+}
+
+/* h3 蓝色风格（标题级别缩小） */
+h3 {
+    font-family: "Calibri", "Arial", sans-serif;
+    font-size: 12pt;        /* 原13pt */
+    font-weight: 600;
+    color: #1c69d4a7;
+    margin-top: 0.55em;
+    margin-bottom: 0.25em;
+}
+
+/* h4 次级黑色标题 */
+h4 {
+    font-family: "Calibri", "Arial", sans-serif;
+    font-size: 11pt;        /* 原12pt */
+    font-weight: 600;
+    margin-top: 0.45em;
+    margin-bottom: 0.22em;
+}
+
+/* ----------- Paragraphs ----------- */
+p {
+    font-family: "Calibri", "Arial", sans-serif;
+    margin: 0.32em 0;
+}
+
+/* ----------- Lists ----------- */
+ul, ol {
+    margin: 0.35em 0 0.35em 1.4em;
+    padding: 0;
+}
+
+li {
+    font-family: "Calibri", "Arial", sans-serif;
+    margin: 0.12em 0;
+    list-style-type: disc;
+    display: list-item;
+}
+
+/* ----------- Images ----------- */
+/* 默认所有图片居中 */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 第一张图：满宽度 */
+img.img-full {
+    max-width: 100%;
+}
+
+/* 第二张图：70% */
+img.img-mid {
+    max-width: 70%;
+}
+
+/* ----------- Inline Code ( `code` ) ----------- */
+code {
+    background-color: #2d2d2d2c;
+    color: #e63b44;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.85em;   /* 小一号 */
+    font-family: "Menlo", "Courier New", monospace;
+}
+
+/* ----------- Figure Numbering ----------- */
+figure {
+    counter-increment: figure-counter;
+    margin: 12px auto;
+}
+
+figcaption {
+    font-family: "Calibri", "Arial", sans-serif;
+    text-align: center;
+    font-size: 10pt;     /* 原11pt */
+    margin-top: 4px;
+    color: #000000;
+}
+
+figcaption::before {
+    content: "Figure " counter(figure-counter) ". ";
+    font-weight: 600;
+    color: #000000;
+}

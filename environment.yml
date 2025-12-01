@@ -1,0 +1,30 @@
+name: dataanalysis_clean
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pyogrio
+  - openpyxl
+  - matplotlib
+  - pyproj
+  - xgboost
+  - jupyterlab
+  - catboost
+  - python-dotenv
+  - ipykernel
+  - pandas
+  - numpy
+  - scipy
+  - pillow
+  - requests
+  - seaborn
+  - shapely
+  - lightgbm
+  - statsmodels
+  - plotly
+  - weasyprint
+  - altair
+  - scikit-learn
+  - geopandas
+  - tabulate
+

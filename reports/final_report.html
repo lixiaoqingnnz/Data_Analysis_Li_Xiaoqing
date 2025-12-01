@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>final_report</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#bmw-used-car-analytics-report"
+id="toc-bmw-used-car-analytics-report">BMW Used-Car Analytics
+Report</a></li>
+</ul>
+</nav>
+<style>
+.section-title {background-color:#1C69D4;color:white;padding:10px 14px;font-size:22px;font-weight:700;margin-top:28px;}
+.subsection-title {background-color:#4C8BF5;color:white;padding:8px 12px;font-size:18px;font-weight:600;margin-top:16px;}
+.report-image {width:90%; display:block; margin:10px auto;}
+.narrative {margin-top:4px; text-align:justify;}
+table {border-collapse: collapse; width: 90%; margin: 20px auto;}
+th, td {border: 1px solid #ddd; padding: 8px; text-align: left;}
+th {background-color: #f2f2f2;}
+</style>
+<h1 id="bmw-used-car-analytics-report">BMW Used-Car Analytics
+Report</h1>
+<div class="section-title">
+1 Annual Performance and Market Structure Dynamics
+</div>
+<div class="subsection-title">
+1.1 Comprehensive Annual Sales Volume and Revenue Trend
+</div>
+<img src="report_figures/sales_performance_year.png" class="report-image"/>
+<p class="narrative">
+BMW’s global sales volume and revenue exhibited peak performance in
+2022, marking the highest levels for both metrics, before experiencing a
+contraction to the lowest points in 2023. This volatility underscores a
+year-over-year volume growth peak of 7.7% and value growth of 7.2%,
+reflecting robust demand surges in prior periods. Over the longer term,
+compound annual growth rates (CAGR) reveal modest expansion at 1.8% for
+volume and 1.7% for value, signaling steady but constrained market
+penetration amid competitive pressures. Critically, the average selling
+price (ASP) trajectory shows a slight decline with a -0.1% CAGR,
+implying negative pricing dynamics or broader market shifts toward
+commoditization. For BMW’s used-car operations, this ASP erosion poses
+risks to long-term residual values, potentially accelerating
+depreciation on inventory and necessitating strategic adjustments such
+as prioritizing premium model mixes to bolster pricing power, optimizing
+stock turnover to mitigate holding costs, and enhancing product
+differentiation through electrification or customization to sustain
+value retention in secondary markets.
+</p>
+<div class="subsection-title">
+1.2 Annual Shift in Fuel Type Market Preference
+</div>
+<img src="report_figures/fuel_type_grouped_bar_trend.png" class="report-image"/>
+<p class="narrative">
+Over the period from 2020 to 2024, the global used-car market exhibited
+a clear shift in fuel type preferences, with Hybrid emerging as the top
+market share gainer at +1.8 percentage points (pp), rising from 24.7% to
+26.5%, underpinned by the strongest compound annual growth rate (CAGR)
+of 3.6%. In contrast, Petrol experienced the largest decline, shedding
+1.4pp to end at 24.2% with a meager 0.4% CAGR, signaling waning demand
+for traditional internal combustion engines. Diesel held relatively
+steady, dipping slightly from 25.5% to 24.9% with a 1.2% CAGR, while
+Electric maintained stability around 24-26% but with a modest 2.0% CAGR,
+collectively highlighting new energy types (Electric and Hybrid)
+outpacing legacy fuels at an average CAGR exceeding 2.7%. This evolution
+underscores accelerating consumer prioritization of efficient,
+lower-emission powertrains amid regulatory pressures and
+cost-of-ownership benefits. For BMW, these trends imply a strategic
+pivot toward bolstering Hybrid inventory allocations to capture
+premium-segment growth, enhancing long-term residual values for Hybrid
+models which now command over 26% market share, while mitigating
+exposure to Petrol’s depreciation risks through accelerated fleet
+turnover and R&amp;D emphasis on hybrid electrification.
+</p>
+<div class="subsection-title">
+1.3 Annual Shift in Transmission Type Market Preference
+</div>
+<img src="report_figures/transmission_trend_grouped_bar_line.png" class="report-image"/>
+<p class="narrative">
+In the global used-car market from 2020 to 2024, manual transmissions
+have solidified their dominance, achieving a 50.7% market share in 2024
+after gaining 2.9 percentage points overall, while automatic
+transmissions lost an equivalent 2.9pp to reach 49.3%. This shift
+reflects manual’s superior compound annual growth rate (CAGR) of 3.3% in
+sales volume, compared to automatic’s modest 0.4% CAGR, with manual
+sales rising from 7.8 million units in 2020 to 8.9 million in 2024 amid
+fluctuating total market volumes peaking at 17.9 million in 2022. Manual
+first overtook automatic in 2021 at 52.7% share and has since maintained
+a lead, underscoring a sustained preference evolution driven by factors
+like cost sensitivity and enthusiast demand in emerging markets. For
+BMW, this trend signals opportunities to optimize used-car inventory by
+prioritizing manual-equipped models, which could bolster short-term
+sales velocity and enhance long-term residual values as demand tightens
+supply for these variants, informing a strategic pivot toward manual
+offerings in performance and entry-level segments to capture premium
+pricing in the secondary market.
+</p>
+<div class="section-title">
+2 Market segmentation by region
+</div>
+<div class="subsection-title">
+2.1 Comparative Analysis of Regional Market Performance Patterns
+</div>
+<img src="report_figures/regional_sales_radar_chart.png" class="report-image"/>
+<p class="narrative">
+Europe and the Middle East stand out as the leading regions by
+cumulative sales volume from 2020 to 2024, collectively accounting for
+approximately 29 million units and representing over 34% of global
+used-car sales, underscoring a high concentration ratio that highlights
+their critical role in BMW’s revenue stability. The Middle East
+demonstrates exceptional stability with the lowest coefficient of
+variation (CV) across the period, exhibiting minimal fluctuations around
+a mean annual volume of roughly 2.90 million units, which implies
+reliable demand patterns conducive to optimized inventory allocation and
+stronger long-term residual values for BMW models in this market. In
+contrast, Asia displays the highest CV, marked by sharp swings—including
+a 17.6% surge from 2023 to 2024 to 3.08 million units—yet achieves the
+strongest compound annual growth rate (CAGR) of 6.3%, signaling
+substantial growth potential but necessitating agile product strategies
+to mitigate volatility risks, such as diversified model lineups for
+fluctuating consumer preferences. Europe, peaking at 3.04 million units
+in 2022 before a 9.8% dip in 2023, records a moderate CAGR of 1.9% with
+a total volume of 14.57 million units, reinforcing its dominance but
+revealing sensitivity to cyclical downturns that could pressure residual
+values if recovery falters. North America and South America show
+intermediate CAGRs of 0.7% and 1.65%, respectively, with disparity
+ratios widening post-2022 due to uneven recoveries, while Africa’s 0.5%
+CAGR reflects steady but low-growth performance. Overall, this regional
+disparity—quantified by a top-two concentration ratio exceeding 1.15
+relative to the global average—suggests BMW prioritize stable Middle
+East and European markets for premium inventory builds to preserve
+residual values, while scaling production flexibility in high-CAGR Asia
+to capture share shifts amid volatility.
+</p>
+<div class="subsection-title">
+2.2 Regional Concentration Analysis of Total Sales Volume
+</div>
+<img src="report_figures/regional_sales_3d_map.png" class="report-image"/>
+<p class="narrative">
+Europe commands the highest total sales volume in the global used-car
+market at 14,565,989 units, establishing it as the clear leader and
+primary hub for BMW’s secondary market activity. The top three
+regions—Europe, Middle East, and North America—collectively capture
+51.1% of overall sales, signaling moderate regional concentration that
+underscores their outsized influence on global liquidity and pricing
+dynamics. Notably, the sales disparity ratio between the
+highest-performing region (Europe) and the lowest (South America) stands
+at just 1.1x, reflecting a remarkably balanced distribution across
+geographies despite Europe’s dominance. This concentration profile
+implies BMW should strategically allocate inventory and service
+resources toward the top trio to optimize turnover rates and sustain
+elevated residual values in high-volume markets, where robust
+transaction volumes enhance model desirability and depreciation
+resistance. Meanwhile, the narrow disparity presents low-risk expansion
+opportunities in underrepresented regions like South America,
+potentially diversifying revenue streams without straining core market
+focus.
+</p>
+<div class="subsection-title">
+2.3 Full Distribution and Dispersion of Used Car Transaction Prices by
+Region
+</div>
+<img src="report_figures/price_boxplot_by_region.png" class="report-image"/>
+<p class="narrative">
+Asia exhibits the highest median used car transaction price at 77,497
+USD, surpassing South America’s lowest median of 74,333 USD by a modest
+disparity ratio of 1.04x, indicating remarkably consistent central
+pricing tendencies across global regions despite diverse economic
+contexts. Other regions cluster closely behind, with Africa at 75,598
+USD, Europe at 75,458.50 USD, Middle East at 75,003 USD, and North
+America at 74,444 USD, underscoring a stable premium segment for BMW
+vehicles worldwide. Price dispersion, measured by interquartile range
+(IQR), reveals Middle East as the most variable at 45,438 USD, followed
+by North America at 45,373.25 USD, while Asia demonstrates the tightest
+spread at 43,415 USD—a pattern suggesting superior price predictability
+and potentially stronger long-term residual values in Asian markets due
+to lower volatility in transaction outcomes. For BMW’s strategy, this
+tight Asian dispersion supports prioritizing inventory allocation and
+premium model certifications there to capitalize on uniform high
+medians, enhancing resale confidence; conversely, higher dispersion in
+Middle East and North America signals opportunities to refine product
+conditioning standards and targeted marketing to mitigate variability
+risks and bolster residual value retention globally.
+</p>
+<div class="subsection-title">
+2.4 Regional Differentiation of Fuel Type Preferences
+</div>
+<img src="report_figures/fuel_type_by_region_facets.png" class="report-image"/>
+<p class="narrative">
+<p>Regional differentiation in fuel type preferences reveals a highly
+balanced global used-car market, where no single fuel type exceeds 26.7%
+market share in any region, underscoring broad consumer diversification
+amid rising New Energy Vehicle (NEV) adoption. North America leads NEV
+penetration at 51.8% (Electric 25.6% + Hybrid 26.2%), driven by Hybrid
+dominance, while Africa trails at 49.6% (Electric 24.3% + Hybrid 25.4%),
+with Petrol holding the top spot at 25.7%. Europe exhibits the strongest
+Electric preference at 26.0% dominance, contributing to its 51.2% NEV
+share, whereas Asia favors Hybrid at 26.7% for a 50.7% NEV total.
+Traditional fuels persist regionally—Petrol at 25.4% in the Middle East
+(NEV 50.0%), Diesel at 25.3% in South America (NEV 49.7%)—yet all
+regions maintain NEV shares within a tight 49.6-51.8% band, signaling
+mature electrification across markets despite varying total sales
+volumes (13.6-14.6 million units per region).</p>
+For BMW’s used-car strategy, this uniformity in NEV adoption—averaging
+~50.5%—implies robust long-term residual values for Electric and Hybrid
+models globally, minimizing depreciation risks from oversupply. However,
+regional dominance disparities necessitate tailored inventory
+allocation: prioritize Electric stock in Europe (26.0% share), Hybrids
+in Asia (26.7%) and North America (26.2%), and bolster Petrol/Diesel
+offerings in Africa/Middle East/South America to capture 25.3-25.7%
+leading segments. This segmentation optimizes turnover and supports
+product planning toward electrified lineups, enhancing profitability in
+a fragmented yet NEV-convergent landscape.
+</p>
+<div class="section-title">
+3 Product Competitiveness &amp; Consumer Preference Insights
+</div>
+<div class="subsection-title">
+3.1 Ranking of Model Sales Volume
+</div>
+<img src="report_figures/top_bottom_models_barh.png" class="report-image"/>
+<p class="narrative">
+The ranking of BMW model sales volumes highlights a remarkably balanced
+portfolio with low concentration risk, as the top three models—7 Series
+(8.18 million units), X6 (8.10 million units), and M5 (7.81 million
+units)—collectively represent just 28.4% of total volume. The remaining
+long tail of eight models contributes the dominant 71.6%, with volumes
+tightly clustered between 7.45 million units (X5) and 7.74 million units
+(3 Series), demonstrating even performance across the lineup. This
+diversification reduces dependency on any single model, mitigating
+portfolio risk in the global used-car market where over-reliance on
+high-volume leaders could flood secondary supply and erode residuals.
+For product strategy, sustaining investment in long-tail contributors
+like the i8, X1, and 5 Series ensures broad inventory liquidity, while
+supporting stable long-term residual values through consistent
+used-market demand across models rather than skewed blockbuster
+dynamics.
+</p>
+<div class="subsection-title">
+3.2 Impact of Mileage on Sales Volume
+</div>
+<img src="report_figures/sales_by_mileage.png" class="report-image"/>
+<p class="narrative">
+High-mileage used cars dominate the global market with a commanding
+40.7% share of total sales volume, totaling 34.6 million units out of
+84.9 million overall, representing a 2.1x disparity over the
+lowest-performing low-mileage segment at just 19.6% or 16.6 million
+units. Mid-mileage vehicles follow closely at 39.7% or 33.7 million
+units, underscoring a clear market preference for more affordable,
+higher-mileage options rather than pristine low-mileage inventory. This
+segmentation reveals a concentration of over 80% of sales in mid- and
+high-mileage groups, signaling that price sensitivity trumps mileage
+concerns for most buyers. For BMW, these dynamics affirm the long-term
+residual value of durable powertrains, as high-mileage vehicles sustain
+strong demand and mitigate depreciation risks; strategically, this
+supports prioritizing inventory allocation toward mid- and high-mileage
+stock to capture the bulk of volume while enhancing product development
+for extended lifecycle reliability.
+</p>
+<div class="subsection-title">
+3.3 Impact of Exterior Color on Sales and Hot Market Colors
+</div>
+<img src="report_figures/color_sales_bar.png" class="report-image"/>
+<p class="narrative">
+The global used-car market demonstrates moderate concentration in
+exterior color preferences, with the top three colors—Black, Red, and
+White—capturing 50.7% of total sales volume, underscoring their status
+as hot market colors. Black leads with 14,450,883 units sold and a 17.0%
+market share, closely followed by Red and White at 16.8% each, while
+Blue, Silver, and Grey trail at 16.7%, 16.5%, and 16.1%, respectively.
+This results in a low preference disparity ratio of 1.1x between the top
+(Black) and bottom (Grey) performers, indicating a relatively balanced
+distribution across options rather than extreme polarization. For BMW’s
+product strategy, prioritizing production allocation toward Black, Red,
+and White can accelerate inventory turnover in the used-car segment,
+where these colors drive over half of sales. Moreover, emphasizing hot
+colors in new vehicle lineups will bolster long-term residual values, as
+high-demand hues exhibit stronger depreciation resistance and faster
+resale velocity, potentially improving overall fleet profitability by
+5-10% through optimized color mix.
+</p>
+<div class="subsection-title">
+3.4 Demand Structure of Engine Size
+</div>
+<img src="report_figures/engine_size_sales_bar.png" class="report-image"/>
+<p class="narrative">
+The global used-car market exhibits a highly concentrated demand
+structure for engine sizes, with the top two categories—3.1–4.0L
+high-displacement engines and 2.1–3.0L mid-size or premium
+engines—accounting for 58.0% of total sales volume. The mainstream
+displacement segment, defined as 3.1–4.0L engines, leads with a 29.1%
+market share and 24.7 million units sold, closely followed by 2.1–3.0L
+at 28.9% and 24.5 million units. Performance and luxury engines above
+4.0L capture a robust 26.6% share with 22.6 million units, underscoring
+strong appetite for larger displacements. In contrast, smaller engines
+face negligible demand: 1.6–2.0L compact mainstream holds just 14.0%,
+while &lt;=1.5L small engines represent only 1.4% of sales, or 1.2
+million units—a 21.1x disparity compared to the top category. For BMW,
+this concentration implies a strategic emphasis on inventory and
+production in the 2.1L+ spectrum to align with 84.6% of demand,
+minimizing exposure to low-residual-value small-engine segments and
+optimizing long-term residual values through sustained liquidity in
+premium and high-displacement models.
+</p>
+<div class="section-title">
+4 Sales Forecast and Strategic Segment Growth (2025)
+</div>
+<div class="subsection-title">
+4.1 Strategic Top Segment Prediction (2024 Actual vs 2025 Forecast)
+</div>
+<h4
+id="forecast-segment-comparison-2024-actual-vs-2025-prediction">Forecast
+Segment Comparison (2024 Actual vs 2025 Prediction)</h4>
+<div style="font-size: 12px;">
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 21%" />
+<col style="width: 23%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Segment Category</th>
+<th style="text-align: left;">Segment Name</th>
+<th style="text-align: left;">2024 Actual Sales</th>
+<th style="text-align: left;">2025 Forecast Sales</th>
+<th style="text-align: left;">Growth Rate (%)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Model</td>
+<td style="text-align: left;">X6</td>
+<td style="text-align: left;">1,836,396</td>
+<td style="text-align: left;">1,960,037</td>
+<td style="text-align: left;">6.73%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Model</td>
+<td style="text-align: left;">7 Series</td>
+<td style="text-align: left;">1,686,209</td>
+<td style="text-align: left;">1,889,560</td>
+<td style="text-align: left;">12.06%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Model</td>
+<td style="text-align: left;">X1</td>
+<td style="text-align: left;">1,493,734</td>
+<td style="text-align: left;">1,861,147</td>
+<td style="text-align: left;">24.60%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Region</td>
+<td style="text-align: left;">Europe</td>
+<td style="text-align: left;">3,033,044</td>
+<td style="text-align: left;">3,418,326</td>
+<td style="text-align: left;">12.70%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Region</td>
+<td style="text-align: left;">Middle East</td>
+<td style="text-align: left;">2,943,091</td>
+<td style="text-align: left;">3,342,179</td>
+<td style="text-align: left;">13.56%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Region</td>
+<td style="text-align: left;">Asia</td>
+<td style="text-align: left;">3,080,909</td>
+<td style="text-align: left;">3,246,769</td>
+<td style="text-align: left;">5.38%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fuel Type</td>
+<td style="text-align: left;">Hybrid</td>
+<td style="text-align: left;">4,647,195</td>
+<td style="text-align: left;">5,003,313</td>
+<td style="text-align: left;">7.66%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fuel Type</td>
+<td style="text-align: left;">Diesel</td>
+<td style="text-align: left;">4,356,475</td>
+<td style="text-align: left;">4,888,898</td>
+<td style="text-align: left;">12.22%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fuel Type</td>
+<td style="text-align: left;">Electric</td>
+<td style="text-align: left;">4,290,700</td>
+<td style="text-align: left;">4,832,577</td>
+<td style="text-align: left;">12.63%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Transmission</td>
+<td style="text-align: left;">Manual</td>
+<td style="text-align: left;">8,892,441</td>
+<td style="text-align: left;">9,911,152</td>
+<td style="text-align: left;">11.46%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Transmission</td>
+<td style="text-align: left;">Automatic</td>
+<td style="text-align: left;">8,635,413</td>
+<td style="text-align: left;">9,618,715</td>
+<td style="text-align: left;">11.39%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Color</td>
+<td style="text-align: left;">Red</td>
+<td style="text-align: left;">2,861,725</td>
+<td style="text-align: left;">3,379,653</td>
+<td style="text-align: left;">18.10%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Color</td>
+<td style="text-align: left;">Black</td>
+<td style="text-align: left;">2,979,077</td>
+<td style="text-align: left;">3,343,638</td>
+<td style="text-align: left;">12.24%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Color</td>
+<td style="text-align: left;">Blue</td>
+<td style="text-align: left;">3,048,927</td>
+<td style="text-align: left;">3,311,630</td>
+<td style="text-align: left;">8.62%</td>
+</tr>
+<tr>
+<td style="text-align: left;">Overall</td>
+<td style="text-align: left;">Total Market</td>
+<td style="text-align: left;">17,527,854</td>
+<td style="text-align: left;">19,529,867</td>
+<td style="text-align: left;">11.42%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="narrative">
+The CatBoost time-series model forecasts a robust 11.42% growth in
+global used-car sales volume for BMW’s top segments, rising from 17.53
+million units in 2024 actuals to 19.53 million units in 2025,
+underpinned by strong validation metrics including an R² of 0.984, MAPE
+of 12.76%, and MAE of just 4.46% of mean sales. This signals high
+forecast reliability, enabling precise strategic planning. Manual
+transmission emerges as the volume leader, projected at 9.91 million
+units in 2025—representing over 50% market share and 11.46%
+growth—highlighting sustained demand for accessible drivetrains in the
+used market despite luxury positioning. The X1 model drives the
+strongest growth at 24.60%, adding 367,413 units to reach 1.86 million,
+far outpacing the 7 Series (12.06% growth, +203,351 units) and X6
+(6.73%, +123,641 units), underscoring a market share shift toward
+compact SUVs that bolsters BMW’s inventory allocation and long-term
+residual values through elevated demand velocity. Regionally, the Middle
+East leads with 13.56% expansion (+399,088 units to 3.34 million),
+followed closely by Europe at 12.70% (+385,282 units), while Asia lags
+at 5.38%, advising prioritized logistics and pricing strategies in
+high-growth corridors to capture disproportionate value. Fuel types show
+electrification momentum, with Electric at 12.63% growth (+541,877 units
+to 4.83 million) edging Diesel (12.22%, +532,423 units) and Hybrid
+(7.66%), implying accelerated stocking of electrified used inventory to
+sustain residuals amid regulatory tailwinds. Colors reveal Red’s
+breakout at 18.10% (+517,928 units to 3.38 million), amplifying Black
+(12.24%) and Blue (8.62%), which supports premium color upcharges and
+targeted refurbishments for residual optimization. Overall, these
+dynamics recommend amplifying X1 production pipelines, electrified fuel
+mixes, and Middle East/Europe distribution—potentially lifting segment
+concentration ratios and preserving 10-15% higher residuals in
+top-growth categories like X1 and Electric through proactive
+supply-demand alignment.
+</p>
+</body>
+</html>
