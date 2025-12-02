@@ -684,7 +684,7 @@ def plot_price_box_region(df: pd.DataFrame) -> tuple[str, dict]:
 
     apply_common_format(
         ax,
-        title="Car Price Distribution by Region (Violin Plot)",
+        title="Car Price Distribution by Region",
         xlabel="Region",
         ylabel="Price (USD)",
     )
@@ -1136,7 +1136,7 @@ def plot_fuel_type_by_region_facets(
 
     # ---- 7. Figure-level title ----
     fig.suptitle(
-        "Fuel Type Sales by Region (Facet Comparison)",
+        "Fuel Type Sales by Region",
         fontsize=20,
         fontweight="bold",
         y=0.98,
@@ -1303,7 +1303,7 @@ def plot_fuel_type_trend_grouped(
     # ---- 4. Apply unified axis style ----
     apply_common_format(
         ax,
-        title="Fuel Type Sales in Used-Car Market by Year\n(Grouped Bars + Trend Lines)",
+        title="Fuel Type Sales in Used-Car Market by Year",
         xlabel="Year",
         ylabel="Total Sales Volume (units)",
     )
@@ -1503,7 +1503,7 @@ def plot_transmission_trend_grouped(trans_trend_df: pd.DataFrame):
     # Unified title/axis styling
     apply_common_format(
         ax,
-        title="Transmission Sales in Used-Car Market by Year\n(Grouped Bars + Trend Lines)",
+        title="Transmission Sales in Used-Car Market by Year",
         xlabel="Year",
         ylabel="Total Sales Volume (units)",
     )
@@ -1666,7 +1666,7 @@ def plot_color_sales_bar(color_df: pd.DataFrame):
     # Unified formatting (title, labels, font)
     apply_common_format(
         ax,
-        title="Total Sales Volume by Color (Market Preference Analysis)",
+        title="Total Sales Volume by Color",
         xlabel="Color",
         ylabel="Total Sales Volume (units)",
     )
@@ -1789,7 +1789,7 @@ def plot_engine_size_sales_bar(eng_df: pd.DataFrame):
     # Apply unified formatting (title, labels, style)
     apply_common_format(
         ax,
-        title="Total Sales by Engine Size (Market Preference Analysis)",
+        title="Total Sales by Engine Size",
         xlabel="Engine Size Category",
         ylabel="Total Sales Volume (units)",
     )
@@ -1921,7 +1921,7 @@ def plot_engine_size_sales_bar(eng_df: pd.DataFrame) -> tuple[str, dict]:
     # ---- 4. Apply unified plot style ----
     apply_common_format(
         ax,
-        title="Total Sales by Engine Size (Market Preference Analysis)",
+        title="Total Sales by Engine Size",
         xlabel="Engine Size Category",
         ylabel="Total Sales Volume (units)",
     )
