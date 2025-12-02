@@ -2,10 +2,36 @@ import argparse
 import os
 import logging
 import json
+import numpy as np
 
 from src.data_loader import load_data
-from src.data_processor import sales_volume_value_year, sales_region_year, total_sales_volume_region, total_sales_value_region, region_price, model_performance, mileage_sales, analyze_fuel_type_by_region, analyze_fuel_type_trend, analyze_transmission_trend, analyze_color_sales, analyze_engine_size_sales
-from src.visualization_module import plot_sales_volume_value_year, plot_region_annual_sales_radar, plot_total_sales_region_3d, plot_price_box_region, plot_model_performance_bar,plot_mileage_sales, plot_fuel_type_by_region_facets, plot_fuel_type_trend_grouped, plot_transmission_trend_grouped, plot_color_sales_bar, plot_engine_size_sales_bar
+from src.data_processor import (
+    sales_volume_value_year,
+    sales_region_year,
+    total_sales_volume_region,
+    total_sales_value_region,
+    region_price,
+    model_performance,
+    mileage_sales,
+    analyze_fuel_type_by_region,
+    analyze_fuel_type_trend,
+    analyze_transmission_trend,
+    analyze_color_sales,
+    analyze_engine_size_sales,
+)
+from src.visualization_module import (
+    plot_sales_volume_value_year,
+    plot_region_annual_sales_radar,
+    plot_total_sales_region_3d,
+    plot_price_box_region,
+    plot_model_performance_bar,
+    plot_mileage_sales,
+    plot_fuel_type_by_region_facets,
+    plot_fuel_type_trend_grouped,
+    plot_transmission_trend_grouped,
+    plot_color_sales_bar,
+    plot_engine_size_sales_bar,
+)
 from src.analysis_module import catboost_forecast_top3
 from src.llm_orchestrator import LLMOrchestrator
 from src.report_generator import generate_full_report
@@ -17,6 +43,25 @@ logging.basicConfig(
 )
 
 logging.info(">>> Starting BMW used-car analytics data pipeline...")
+
+
+def convert_numpy(obj):
+    """
+    Recursively convert NumPy types to native Python types
+    so the object can be safely serialized to JSON.
+    """
+    if isinstance(obj, dict):
+        return {k: convert_numpy(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_numpy(v) for v in obj]
+    elif isinstance(obj, (np.int32, np.int64)):
+        return int(obj)
+    elif isinstance(obj, (np.float32, np.float64)):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return obj.tolist()
+    else:
+        return obj
 
 
 def main(file_path: str):
@@ -45,11 +90,11 @@ def main(file_path: str):
     logging.info(f"--- [Step 2] Starting data analysis pipeline ---")
 
     report_data: list[dict] = []
+    analysis_summary_data: list[dict] = []  # NEW: store analysis summaries separately
 
     # =========================================================
     # SECTION 1 — Trends by year
     # =========================================================
-    
     section_title_trends = "Annual Performance and Market Structure Dynamics"
 
     # 1.1 Annual sales trends
@@ -68,6 +113,11 @@ def main(file_path: str):
         "chart_path": chart_path_sales_volume_value_year,
         "narrative": narrative_1,
     })
+    analysis_summary_data.append({
+        "section_title": section_title_trends,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_sales_volume_value_year,
+    })
     logging.info(">>> [1.1 Annual sales trends] Data processed, chart generated, and narrative created.")
 
     # 1.2 Fuel type trend by year
@@ -84,8 +134,13 @@ def main(file_path: str):
         "chart_path": chart_path_fuel_type_year,
         "narrative": narrative_2,
     })
+    analysis_summary_data.append({
+        "section_title": section_title_trends,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_fuel_type_year,
+    })
     logging.info(">>> [1.2 Fuel type trend by year] Data processed, chart generated, and narrative created.")
-
+    
     # 1.3 Transmission type (manual/automatic) trend by year
     subsection_title = "Annual Shift in Transmission Type Market Preference"
     df_transmission_trend_year = analyze_transmission_trend(df_clean)
@@ -101,6 +156,11 @@ def main(file_path: str):
         "subsection_title": subsection_title,
         "chart_path": chart_path_transmission_type_year,
         "narrative": narrative_3,
+    })
+    analysis_summary_data.append({
+        "section_title": section_title_trends,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_transmission_type_year,
     })
     logging.info(">>> [1.3 Transmission trend by year] Data processed, chart generated, and narrative created.")
 
@@ -123,6 +183,11 @@ def main(file_path: str):
         "chart_path": chart_path_region_sales,
         "narrative": narrative_4,
     })
+    analysis_summary_data.append({
+        "section_title": section_title_market,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_region_sales,
+    })
     logging.info(">>> [2.1 Regional annual sales distribution] Data processed, chart generated, and narrative created.")
 
     # 2.2 Total sales volume by region (3D map)
@@ -141,9 +206,14 @@ def main(file_path: str):
         "chart_path": total_sales_region_plot_path,
         "narrative": narrative_5,
     })
+    analysis_summary_data.append({
+        "section_title": section_title_market,
+        "subsection_title": subsection_title,
+        "analysis summary": total_sales_region_summary,
+    })
     logging.info(">>> [2.2 Total sales volume by region] Data processed, chart generated, and narrative created.")
 
-    # 2.3 Price distribution by region (violin)
+    # 2.3 Price distribution by region (violin/box)
     subsection_title = "Full Distribution and Dispersion of Used Car Transaction Prices by Region"
     df_region_price = region_price(df_clean)  # almost all rows; only used for chart
     chart_path_price_box_region, summary_price_box_region = plot_price_box_region(df_region_price)
@@ -156,6 +226,11 @@ def main(file_path: str):
         "subsection_title": subsection_title,
         "chart_path": chart_path_price_box_region,
         "narrative": narrative_6,
+    })
+    analysis_summary_data.append({
+        "section_title": section_title_market,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_price_box_region,
     })
     logging.info(">>> [2.3 Price distribution by region] Data processed, chart generated, and narrative created.")
 
@@ -172,6 +247,11 @@ def main(file_path: str):
         "subsection_title": subsection_title,
         "chart_path": chart_path_fuel_type_region,
         "narrative": narrative_7,
+    })
+    analysis_summary_data.append({
+        "section_title": section_title_market,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_fuel_type_region,
     })
     logging.info(">>> [2.4 Fuel type distribution by region] Data processed, chart generated, and narrative created.")
 
@@ -194,6 +274,11 @@ def main(file_path: str):
         "chart_path": model_performance_plot_path,
         "narrative": narrative_8,
     })
+    analysis_summary_data.append({
+        "section_title": section_title_pref,
+        "subsection_title": subsection_title,
+        "analysis summary": model_performance_summary,
+    })
     logging.info(">>> [3.1 Model performance ranking] Data processed, chart generated, and narrative created.")
 
     # 3.2 Mileage impact on sales
@@ -209,6 +294,11 @@ def main(file_path: str):
         "subsection_title": subsection_title,
         "chart_path": chart_path_mileage_sales,
         "narrative": narrative_9,
+    })
+    analysis_summary_data.append({
+        "section_title": section_title_pref,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_mileage_sales,
     })
     logging.info(">>> [3.2 Mileage impact on sales] Data processed, chart generated, and narrative created.")
 
@@ -226,6 +316,11 @@ def main(file_path: str):
         "chart_path": chart_path_color_sales,
         "narrative": narrative_10,
     })
+    analysis_summary_data.append({
+        "section_title": section_title_pref,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_color_sales,
+    })
     logging.info(">>> [3.3 Color preference analysis] Data processed, chart generated, and narrative created.")
 
     # 3.4 Engine-size market preference
@@ -242,15 +337,19 @@ def main(file_path: str):
         "chart_path": chart_path_engine_size_sales,
         "narrative": narrative_11,
     })
+    analysis_summary_data.append({
+        "section_title": section_title_pref,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_engine_size_sales,
+    })
     logging.info(">>> [3.4 Engine-size market preference] Data processed, chart generated, and narrative created.")
-    
-    
 
     # =========================================================
     # SECTION 4 — Sales Forecast and Strategic Segment Growth (2025)
     # =========================================================
     section_title_forecast = "Sales Forecast and Strategic Segment Growth (2025)"
-    # subsection_title = "Strategic Top Segment Prediction (2024 Actual vs 2025 Forecast)"
+    subsection_title = "Strategic Top Segment Prediction (2024 Actual vs 2025 Forecast)"
+
     metrics_2024, total_2025, combined_top3_df, md_combined_top3, summary_forecast = catboost_forecast_top3(df_clean)
     narrative_12 = orchestrator.generate_chart_narrative(
         section_title=subsection_title,
@@ -258,46 +357,72 @@ def main(file_path: str):
     )
     report_data.append({
         "section_title": section_title_forecast,
-        # "subsection_title": subsection_title,
-        "chart_path": "", 
+        "subsection_title": subsection_title,
+        "chart_path": "",
         "narrative": narrative_12,
-        "table_content": md_combined_top3, 
+        "table_content": md_combined_top3,
     })
-    logging.info(">>> [4.1 Sales forecase and strategic] Data processed, table generated, and narrative created.")
+    analysis_summary_data.append({
+        "section_title": section_title_forecast,
+        "subsection_title": subsection_title,
+        "analysis summary": summary_forecast,
+    })
+    logging.info(">>> [4.1 Sales forecast and strategic] Data processed, table generated, and narrative created.")
 
     # =========================================================
     # SECTION 5 — Summary
     # =========================================================
     section_title_summary = "Summary"
-    all_narratives = [narrative_1, narrative_2, narrative_3, narrative_4, narrative_5, narrative_6, narrative_7, narrative_8, narrative_9, narrative_10, narrative_11, narrative_12]
+    all_narratives = [
+        narrative_1, narrative_2, narrative_3,
+        narrative_4, narrative_5, narrative_6,
+        narrative_7, narrative_8, narrative_9,
+        narrative_10, narrative_11, narrative_12
+    ]
     narrative_summary = orchestrator.generate_executive_summary(
-        all_narratives = all_narratives
+        all_narratives=all_narratives
     )
     report_data.append({
         "section_title": section_title_summary,
         "narrative": narrative_summary,
     })
+    # Keep alignment of indices; analysis summary for section 5 is None
+    analysis_summary_data.append({
+        "section_title": section_title_summary,
+        "subsection_title": None,
+        "analysis summary": None,
+    })
     logging.info(">>> [5 Summary] Narrative created.")
+    
 
     logging.info("--- [Step 3] Reporting data generation completed ---")
-    # temp save report data 
+
+    # ---- 3. Save report data (without analysis summary) ----
+    report_data = convert_numpy(report_data)
+    os.makedirs("reports", exist_ok=True)
     with open("reports/temp_report_data.json", "w", encoding="utf-8") as f:
         json.dump(report_data, f, indent=4, ensure_ascii=False)
     logging.info(">>> [Step 4] Report data saved to reports/temp_report_data.json")
 
-    return report_data
+    # ---- 4. Save analysis summaries to a separate file ----
+    analysis_summary_data = convert_numpy(analysis_summary_data)
+    with open("reports/analysis_summary_data.json", "w", encoding="utf-8") as f:
+        json.dump(analysis_summary_data, f, indent=4, ensure_ascii=False)
+    logging.info(">>> [Step 4b] Analysis summaries saved to reports/analysis_summary_data.json")
 
+    return report_data
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Automated LLM-Powered Business Reporting.")
     parser.add_argument(
-        '--file', 
-        type=str, 
-        default='data/raw/BMW_sales_data_(2020-2024).xlsx', 
+        '--file',
+        type=str,
+        default='data/raw/BMW_sales_data_(2020-2024).xlsx',
         help='Path to input data file'
     )
     args = parser.parse_args()
-    # run main function 
-    # report_data = main(args.file)
+
+    # Run main function
+    report_data = main(args.file)
     generate_full_report()
