@@ -95,9 +95,10 @@ analytic capabilities in the case study specification, including trend
 identification over time and region, top-performing and underperforming
 segments, key drives of sales and additional creative insights (2025
 sales forecast using ML).</p>
-<h2 id="model-selection">3. Model Selection</h2>
+<h2 id="model-selection-and-evaluation">3. Model Selection and
+Evaluation</h2>
 <h3 id="llm-model-selection">3.1 LLM Model Selection</h3>
-<p>The project uses the <strong>“x-ai/grok-4.1-fast:free”</strong> model
+<p>The project uses the <strong>“openai/gpt-oss-20b:free”</strong> model
 via <strong>OpenRouter API</strong> as this model currently offers one
 of the strongest performance levels among the freely accessible large
 models on OpenRouter.</p>
@@ -115,26 +116,32 @@ Performance</figcaption>
 introduces a machine-learning forecasting module as a <strong>creative
 analytical extension</strong>. Four ensemble models—XGBoost, LightGBM,
 Random Forest, and CatBoost—were evaluated using lag-enhanced historical
-data (2020–2024). CatBoost achieved the highest accuracy on 2024
-validation and was adopted for forecasting. The final model provides
-2025 predicted total sales and sales breakdowns by model, region, fuel
-type, transmission, and color, supporting data-driven planning for the
-coming year.</p>
-<h2 id="reproducibility-and-code-quality">4. Reproducibility and Code
-Quality</h2>
-<p>The codebase adopts a modular, deterministic, and fully reproducible
-design that cleanly separates orchestration from business logic,
-enforces consistent preprocessing and visualization outputs, and
-provides structured logging, error-handling, and unified styling across
-generated figures and Markdown, HTML, and PDF reports.</p>
-<h2 id="conclusion-and-future-outlook">5. Conclusion and Future
+data (2020–2024) with multiple evaluation metrics. CatBoost achieved the
+highest accuracy on 2024 validation and was adopted for forecasting. The
+final model provides 2025 predicted total sales and sales breakdowns by
+model, region, fuel type, transmission, and color, supporting
+data-driven planning for the coming year.</p>
+<h3 id="evaluation-framework-and-multi-model-validation">3.3 Evaluation
+Framework and Multi-Model Validation</h3>
+<p>The project includes an <strong>automated evaluation
+pipeline</strong> that extracts all numeric values from the
+LLM-generated narratives and cross-checks them against the structured
+analysis summary. This produces a quantifiable measure of narrative–data
+alignment, yielding an overall numeric coverage rate of
+<strong>75.17%</strong>. In addition to numeric evaluation,
+<strong>multi-LLM qualitative assessments</strong> (using ChatGPT and
+Gemini) were performed to review the final report’s completeness,
+correctness, readability, and coherence.</p>
+<!-- ## 4. Reproducibility and Code Quality
+
+The codebase adopts a modular, deterministic, and fully reproducible design that cleanly separates orchestration from business logic, enforces consistent preprocessing and visualization outputs, and provides structured logging, error-handling, and unified styling across generated figures and Markdown, HTML, and PDF reports. -->
+<h2 id="conclusion-and-future-outlook">4. Conclusion and Future
 Outlook</h2>
-<p>This project showcases a scalable, extensible framework for automated
-business reporting driven by LLM-powered orchestration, with future
-enhancements aimed at richer insight generation through multimodal
-embeddings, stronger reasoning control via expanded prompt-engineering,
-scheduled automation through CI/CD pipelines, broader export options
-such as PowerPoint and dashboards, and deployment as a lightweight
-microservice or serverless function for enterprise integration.</p>
+<p>Future enhancements aimed at richer insight generation through
+multimodal embeddings, stronger reasoning control via expanded
+prompt-engineering, scheduled automation through CI/CD pipelines,
+broader export options such as PowerPoint and dashboards, and deployment
+as a lightweight microservice or serverless function for enterprise
+integration.</p>
 </body>
 </html>

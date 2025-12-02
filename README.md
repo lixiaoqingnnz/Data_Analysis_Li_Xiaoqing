@@ -22,7 +22,7 @@ This project adopts a structured layout based on the data science workflow, orga
 | **`executive_summary/`**| **Executive summary.** Contains the required deliverables "executive summary" PDF. |
 | **`data/`** | **Data Storage.** Separated into `raw/` (for immutable source files) and `processed/` (for clean, analysis-ready data). |
 | **`src/`** | **Source Code.** Contains all reusable Python modules (`data_loader.py`, `analysis_module.py`, `report_generator.py`, etc.) that execute the pipeline logic. |
-| **`notebooks/`** | **ML Prototypes.** Used for exploratory of multiple ML forecast models before integrating code into `src/`. |
+| **`notebooks/`** | **ML Prototypes & Evaluation.** Used for exploratory of multiple ML forecast models before integrating code into `src/`. Evaluation metric for Analytical Correctness are also included in this folder.|
 | **`tmp/`** | **ML Model Storage.** Stores the training logging of Catboost model. |
 | **`external_src/`**| **External Resources.** Stores non-code assets, such as geographical shapefiles used for specialized visualization. |
 | **`main.py`** | **Project Entry Point.** The central script to run the entire data pipeline and generate all outputs. |
