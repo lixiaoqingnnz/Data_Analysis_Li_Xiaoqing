@@ -50,16 +50,22 @@ def generate_markdown(
     lines.append("}")
 
     # --- Cover page styles ---
+    # --- Cover page styles ---
+    lines.append("body { margin: 0; padding: 0; }")
+
     lines.append(".cover-page {")
-    lines.append("  height: 100vh;")
-    lines.append("  display: flex;")
-    lines.append("  flex-direction: column;")
-    lines.append("  justify-content: center;")
-    lines.append("  align-items: center;")
+    lines.append("  position: absolute;")
+    lines.append("  top: 50%;")
+    lines.append("  left: 50%;")
+    lines.append("  transform: translate(-50%, -50%);")
+    lines.append("  text-align: center;")
+    lines.append("  width: 80%;")
     lines.append("}")
+
     lines.append(".cover-title {font-size:40px;font-weight:700;margin-bottom:20px;color:#1C69D4;}")
     lines.append(".cover-subtitle {font-size:20px;margin-bottom:30px;color:#333;}")
     lines.append(".cover-meta {font-size:14px;margin:5px 0;color:#555;}")
+
 
     # --- Report content styles ---
     lines.append(".main-title {font-size:32px;font-weight:700;margin-top:40px;margin-bottom:28px;text-align:left;}")
@@ -72,9 +78,8 @@ def generate_markdown(
     lines.append("th {background-color: #f2f2f2;}")
     lines.append("</style>\n")
 
-    # =============================================================
+
     # COVER PAGE
-    # =============================================================
     lines.append('<div class="cover-page">')
     lines.append(f'<div class="cover-title">{report_title}</div>')
     lines.append('<div class="cover-subtitle">Global Used-Car Market Analytics (2020–2024)</div>')
@@ -85,14 +90,11 @@ def generate_markdown(
     # Force next page
     lines.append('<div style="page-break-after: always;"></div>\n')
 
-    # =============================================================
     # MAIN DOCUMENT TITLE (Page 2)
-    # =============================================================
-    lines.append(f'<h1 class="main-title">{report_title}</h1>\n')
+    # lines.append(f'<h1 class="main-title">{report_title}</h1>\n')
 
-    # =============================================================
+
     # Build report sections
-    # =============================================================
     section_counter = 0
     subsection_counter = 0
     current_section = None
@@ -110,48 +112,37 @@ def generate_markdown(
         raw_subsection = item.get("subsection_title", None)
         subsection = raw_subsection.strip() if isinstance(raw_subsection, str) else None
 
-        # ---------------------------------------------------------
+
         # Section Header (only when section changes)
-        # ---------------------------------------------------------
         if section != current_section:
             section_counter += 1
             subsection_counter = 0
             current_section = section
             lines.append(f'<div class="section-title">{section_counter} {section}</div>')
 
-        # ---------------------------------------------------------
         # Subsection Header (only if subsection_title exists)
-        # ---------------------------------------------------------
         if subsection:  # Only output if non-empty string
             subsection_counter += 1
             sub_num = f"{section_counter}.{subsection_counter}"
             lines.append(f'<div class="subsection-title">{sub_num} {subsection}</div>')
 
-        # ---------------------------------------------------------
         # Table insertion (if present)
-        # ---------------------------------------------------------
         if table_content:
             lines.append("\n#### Forecast Segment Comparison (2024 Actual vs 2025 Prediction)\n")
             lines.append('<div style="font-size: 12px;">')
             lines.append(table_content)
             lines.append("</div>\n")
 
-        # ---------------------------------------------------------
         # Image insertion (if present)
-        # ---------------------------------------------------------
         if chart_path:
             full_chart_path = os.path.join(project_root, chart_path)
             relative_chart_path = os.path.relpath(full_chart_path, md_dir)
             lines.append(f'<img src="{relative_chart_path}" class="report-image"/>')
 
-        # ---------------------------------------------------------
         # Narrative paragraph
-        # ---------------------------------------------------------
         lines.append(f'<p class="narrative">{narrative}</p>\n')
 
-    # =============================================================
     # Write MD file
-    # =============================================================
     os.makedirs(md_dir, exist_ok=True)
     with open(md_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))

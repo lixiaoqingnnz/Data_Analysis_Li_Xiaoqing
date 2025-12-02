@@ -1,0 +1,1001 @@
+[
+    {
+        "section_title": "Annual Performance and Market Structure Dynamics",
+        "subsection_title": "Comprehensive Annual Sales Volume and Revenue Trend",
+        "analysis summary": {
+            "insight_key": "Annual_Sales_Performance",
+            "description": "Annual comparison of BMW global sales volume and sales value, highlighting peak performance years, growth trends, and Average Selling Price (ASP) trajectory.",
+            "findings": {
+                "peak_volume_year": 2022,
+                "peak_value_year": 2022,
+                "lowest_volume_year": 2023,
+                "lowest_value_year": 2023,
+                "highest_volume_growth_yoy": "7.7%",
+                "highest_value_growth_yoy": "7.2%",
+                "cagr_volume": "1.8%",
+                "cagr_value": "1.7%",
+                "cagr_asp": "-0.1%",
+                "asp_trend_implication": "Negative Pricing/Market Shift"
+            }
+        }
+    },
+    {
+        "section_title": "Annual Performance and Market Structure Dynamics",
+        "subsection_title": "Annual Shift in Fuel Type Market Preference",
+        "analysis summary": {
+            "insight_key": "FuelType_MarketShare_Evolution",
+            "description": "Grouped bar chart showing the absolute sales trend of each fuel type. Analysis focuses on the evolution of market share and the relative growth rate (CAGR) of new energy types.",
+            "findings": {
+                "years": [
+                    2020,
+                    2021,
+                    2022,
+                    2023,
+                    2024
+                ],
+                "fuel_types": [
+                    "Diesel",
+                    "Electric",
+                    "Hybrid",
+                    "Petrol"
+                ],
+                "top_market_share_gainer": "Hybrid",
+                "top_market_share_loser": "Petrol",
+                "top_gainer_shift": "1.8pp",
+                "fuel_type_cagr": {
+                    "Diesel": "1.2%",
+                    "Electric": "2.0%",
+                    "Hybrid": "3.6%",
+                    "Petrol": "0.4%"
+                },
+                "new_energy_types": [
+                    "Electric",
+                    "Hybrid"
+                ],
+                "new_energy_cagr": {
+                    "Electric": "2.0%",
+                    "Hybrid": "3.6%"
+                },
+                "market_share_records": [
+                    {
+                        "year": 2020,
+                        "fuel_type": "Diesel",
+                        "total_sales": 4152177,
+                        "sales_share": 0.2545654445941267,
+                        "annual_total_sales": 16310843,
+                        "market_share": 25.456544459412672
+                    },
+                    {
+                        "year": 2020,
+                        "fuel_type": "Electric",
+                        "total_sales": 3962571,
+                        "sales_share": 0.24294090746873107,
+                        "annual_total_sales": 16310843,
+                        "market_share": 24.294090746873106
+                    },
+                    {
+                        "year": 2020,
+                        "fuel_type": "Hybrid",
+                        "total_sales": 4032718,
+                        "sales_share": 0.24724154355479971,
+                        "annual_total_sales": 16310843,
+                        "market_share": 24.72415435547997
+                    },
+                    {
+                        "year": 2020,
+                        "fuel_type": "Petrol",
+                        "total_sales": 4163377,
+                        "sales_share": 0.25525210438234247,
+                        "annual_total_sales": 16310843,
+                        "market_share": 25.525210438234247
+                    },
+                    {
+                        "year": 2021,
+                        "fuel_type": "Diesel",
+                        "total_sales": 4137203,
+                        "sales_share": 0.24502723358578724,
+                        "annual_total_sales": 16884666,
+                        "market_share": 24.502723358578724
+                    },
+                    {
+                        "year": 2021,
+                        "fuel_type": "Electric",
+                        "total_sales": 4239630,
+                        "sales_share": 0.25109350697253946,
+                        "annual_total_sales": 16884666,
+                        "market_share": 25.109350697253944
+                    },
+                    {
+                        "year": 2021,
+                        "fuel_type": "Hybrid",
+                        "total_sales": 4331469,
+                        "sales_share": 0.2565327025124453,
+                        "annual_total_sales": 16884666,
+                        "market_share": 25.653270251244532
+                    },
+                    {
+                        "year": 2021,
+                        "fuel_type": "Petrol",
+                        "total_sales": 4176364,
+                        "sales_share": 0.24734655692922797,
+                        "annual_total_sales": 16884666,
+                        "market_share": 24.734655692922797
+                    },
+                    {
+                        "year": 2022,
+                        "fuel_type": "Diesel",
+                        "total_sales": 4474126,
+                        "sales_share": 0.2496590302766383,
+                        "annual_total_sales": 17920946,
+                        "market_share": 24.96590302766383
+                    },
+                    {
+                        "year": 2022,
+                        "fuel_type": "Electric",
+                        "total_sales": 4383912,
+                        "sales_share": 0.24462503262941587,
+                        "annual_total_sales": 17920946,
+                        "market_share": 24.46250326294159
+                    },
+                    {
+                        "year": 2022,
+                        "fuel_type": "Hybrid",
+                        "total_sales": 4687463,
+                        "sales_share": 0.2615633683623621,
+                        "annual_total_sales": 17920946,
+                        "market_share": 26.15633683623621
+                    },
+                    {
+                        "year": 2022,
+                        "fuel_type": "Petrol",
+                        "total_sales": 4375445,
+                        "sales_share": 0.2441525687315837,
+                        "annual_total_sales": 17920946,
+                        "market_share": 24.41525687315837
+                    },
+                    {
+                        "year": 2023,
+                        "fuel_type": "Diesel",
+                        "total_sales": 3842804,
+                        "sales_share": 0.23620909265142648,
+                        "annual_total_sales": 16268654,
+                        "market_share": 23.620909265142647
+                    },
+                    {
+                        "year": 2023,
+                        "fuel_type": "Electric",
+                        "total_sales": 4305554,
+                        "sales_share": 0.2646533634558827,
+                        "annual_total_sales": 16268654,
+                        "market_share": 26.46533634558827
+                    },
+                    {
+                        "year": 2023,
+                        "fuel_type": "Hybrid",
+                        "total_sales": 4013825,
+                        "sales_share": 0.24672139440669155,
+                        "annual_total_sales": 16268654,
+                        "market_share": 24.672139440669156
+                    },
+                    {
+                        "year": 2023,
+                        "fuel_type": "Petrol",
+                        "total_sales": 4106471,
+                        "sales_share": 0.2524161494859993,
+                        "annual_total_sales": 16268654,
+                        "market_share": 25.241614948599928
+                    },
+                    {
+                        "year": 2024,
+                        "fuel_type": "Diesel",
+                        "total_sales": 4356475,
+                        "sales_share": 0.2485458288276477,
+                        "annual_total_sales": 17527854,
+                        "market_share": 24.85458288276477
+                    },
+                    {
+                        "year": 2024,
+                        "fuel_type": "Electric",
+                        "total_sales": 4290700,
+                        "sales_share": 0.2447932302494076,
+                        "annual_total_sales": 17527854,
+                        "market_share": 24.47932302494076
+                    },
+                    {
+                        "year": 2024,
+                        "fuel_type": "Hybrid",
+                        "total_sales": 4647195,
+                        "sales_share": 0.2651320007571948,
+                        "annual_total_sales": 17527854,
+                        "market_share": 26.513200075719478
+                    },
+                    {
+                        "year": 2024,
+                        "fuel_type": "Petrol",
+                        "total_sales": 4233484,
+                        "sales_share": 0.24152894016574988,
+                        "annual_total_sales": 17527854,
+                        "market_share": 24.15289401657499
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "section_title": "Annual Performance and Market Structure Dynamics",
+        "subsection_title": "Annual Shift in Transmission Type Market Preference",
+        "analysis summary": {
+            "insight_key": "Transmission_MarketShare_Shift",
+            "description": "Grouped chart showing the absolute sales trend of transmission types. Analysis focuses on quantifying the market share shift and preference evolution over the years.",
+            "findings": {
+                "years": [
+                    2020,
+                    2021,
+                    2022,
+                    2023,
+                    2024
+                ],
+                "transmissions": [
+                    "Automatic",
+                    "Manual"
+                ],
+                "dominant_transmission_latest_year": "Manual",
+                "dominant_share_latest_year": "50.7%",
+                "top_market_share_gainer": "Manual",
+                "top_gainer_shift": "2.9pp",
+                "top_market_share_loser": "Automatic",
+                "top_loser_shift": "-2.9pp",
+                "transmission_cagr": {
+                    "Automatic": "0.4%",
+                    "Manual": "3.3%"
+                },
+                "market_share_records": [
+                    {
+                        "year": 2020,
+                        "transmission": "Automatic",
+                        "total_sales": 8513157,
+                        "annual_total_sales": 16310843,
+                        "market_share": 52.19323734524328
+                    },
+                    {
+                        "year": 2020,
+                        "transmission": "Manual",
+                        "total_sales": 7797686,
+                        "annual_total_sales": 16310843,
+                        "market_share": 47.80676265475672
+                    },
+                    {
+                        "year": 2021,
+                        "transmission": "Automatic",
+                        "total_sales": 7985225,
+                        "annual_total_sales": 16884666,
+                        "market_share": 47.29276255745894
+                    },
+                    {
+                        "year": 2021,
+                        "transmission": "Manual",
+                        "total_sales": 8899441,
+                        "annual_total_sales": 16884666,
+                        "market_share": 52.707237442541064
+                    },
+                    {
+                        "year": 2022,
+                        "transmission": "Automatic",
+                        "total_sales": 8655822,
+                        "annual_total_sales": 17920946,
+                        "market_share": 48.300028357877984
+                    },
+                    {
+                        "year": 2022,
+                        "transmission": "Manual",
+                        "total_sales": 9265124,
+                        "annual_total_sales": 17920946,
+                        "market_share": 51.69997164212202
+                    },
+                    {
+                        "year": 2023,
+                        "transmission": "Automatic",
+                        "total_sales": 8056380,
+                        "annual_total_sales": 16268654,
+                        "market_share": 49.52087615853162
+                    },
+                    {
+                        "year": 2023,
+                        "transmission": "Manual",
+                        "total_sales": 8212274,
+                        "annual_total_sales": 16268654,
+                        "market_share": 50.479123841468386
+                    },
+                    {
+                        "year": 2024,
+                        "transmission": "Automatic",
+                        "total_sales": 8635413,
+                        "annual_total_sales": 17527854,
+                        "market_share": 49.26680128668347
+                    },
+                    {
+                        "year": 2024,
+                        "transmission": "Manual",
+                        "total_sales": 8892441,
+                        "annual_total_sales": 17527854,
+                        "market_share": 50.73319871331653
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "section_title": "Market segmentation by region",
+        "subsection_title": "Comparative Analysis of Regional Market Performance Patterns",
+        "analysis summary": {
+            "insight_key": "Regional_Sales_Radar",
+            "description": "Radar chart comparing multi-year sales performance across regions. The chart is normalized to show the relative pattern and stability of sales contribution over time.",
+            "findings": {
+                "top_regions_by_total_sales": [
+                    "Europe",
+                    "Middle East"
+                ],
+                "most_stable_region_by_cv": "Middle East",
+                "most_volatile_region_by_cv": "Asia",
+                "leading_region_peak_year": {
+                    "region": 2022,
+                    "year": "Europe"
+                },
+                "regional_annual_sales_data": {
+                    "Africa": {
+                        "2020": 2750323,
+                        "2021": 2867259,
+                        "2022": 2902488,
+                        "2023": 2682214,
+                        "2024": 2805506
+                    },
+                    "Asia": {
+                        "2020": 2407513,
+                        "2021": 2723010,
+                        "2022": 2996216,
+                        "2023": 2657621,
+                        "2024": 3080909
+                    },
+                    "Europe": {
+                        "2020": 2811188,
+                        "2021": 2944050,
+                        "2022": 3038459,
+                        "2023": 2739248,
+                        "2024": 3033044
+                    },
+                    "Middle East": {
+                        "2020": 2933797,
+                        "2021": 2928669,
+                        "2022": 2970449,
+                        "2023": 2752390,
+                        "2024": 2943091
+                    },
+                    "North America": {
+                        "2020": 2782286,
+                        "2021": 2729395,
+                        "2022": 3016152,
+                        "2023": 2911604,
+                        "2024": 2862275
+                    },
+                    "South America": {
+                        "2020": 2625736,
+                        "2021": 2692283,
+                        "2022": 2997182,
+                        "2023": 2525577,
+                        "2024": 2803029
+                    }
+                }
+            }
+        }
+    },
+    {
+        "section_title": "Market segmentation by region",
+        "subsection_title": "Regional Concentration Analysis of Total Sales Volume",
+        "analysis summary": {
+            "insight_key": "Regional_3D_Sales_Map",
+            "description": "3D extruded world map showing total sales volume by region. This visualization is used to assess market concentration and regional dominance over the entire analysis period.",
+            "findings": {
+                "highest_sales_region": "Europe",
+                "highest_sales_value": 14565989,
+                "lowest_sales_region": "South America",
+                "top_regions_for_dominance": [
+                    "Europe",
+                    "Middle East",
+                    "North America"
+                ],
+                "top_n_concentration_ratio": "51.1%",
+                "sales_disparity_ratio_highest_to_lowest": "1.1x",
+                "sales_unit": "units (raw sales volume)"
+            }
+        }
+    },
+    {
+        "section_title": "Market segmentation by region",
+        "subsection_title": "Full Distribution and Dispersion of Used Car Transaction Prices by Region",
+        "analysis summary": {
+            "insight_key": "Price_Distribution_By_Region",
+            "description": "Violin plot detailing the full distribution of vehicle prices by region. Analysis focuses on central tendency (median) and price dispersion (IQR) to assess market segments.",
+            "findings": {
+                "highest_median_price_region": "Asia",
+                "highest_median_price_value": 77497.0,
+                "lowest_median_price_region": "South America",
+                "median_price_disparity_ratio": "1.04x",
+                "highest_price_dispersion_region": "Middle East",
+                "highest_dispersion_value_iqr": 45438.0,
+                "lowest_price_dispersion_region": "Asia",
+                "median_price_by_region": {
+                    "Asia": 77497.0,
+                    "Africa": 75598.0,
+                    "Europe": 75458.5,
+                    "Middle East": 75003.0,
+                    "North America": 74444.0,
+                    "South America": 74333.0
+                },
+                "IQR_by_region": {
+                    "Asia": 43415.0,
+                    "Africa": 44651.0,
+                    "Europe": 44415.5,
+                    "Middle East": 45438.0,
+                    "North America": 45373.25,
+                    "South America": 44242.0
+                },
+                "price_unit": "USD"
+            }
+        }
+    },
+    {
+        "section_title": "Market segmentation by region",
+        "subsection_title": "Regional Differentiation of Fuel Type Preferences",
+        "analysis summary": {
+            "insight_key": "Regional_FuelType_Segmentation",
+            "description": "Facet bar charts comparing the internal market share of fuel types within each region. Analysis focuses on fuel type dominance and New Energy Vehicle (NEV) adoption rates to highlight regional market maturity.",
+            "findings": {
+                "highest_nev_share_region": "North America",
+                "highest_nev_share_value": "51.8%",
+                "lowest_nev_share_region": "Africa",
+                "regional_fuel_segmentation_summary": {
+                    "Africa": {
+                        "dominance_fuel": "Petrol",
+                        "dominance_share": "25.7%",
+                        "nev_sales_share": "49.6%",
+                        "regional_total_sales": 14007790
+                    },
+                    "Asia": {
+                        "dominance_fuel": "Hybrid",
+                        "dominance_share": "26.7%",
+                        "nev_sales_share": "50.7%",
+                        "regional_total_sales": 13865269
+                    },
+                    "Europe": {
+                        "dominance_fuel": "Electric",
+                        "dominance_share": "26.0%",
+                        "nev_sales_share": "51.2%",
+                        "regional_total_sales": 14565989
+                    },
+                    "Middle East": {
+                        "dominance_fuel": "Petrol",
+                        "dominance_share": "25.4%",
+                        "nev_sales_share": "50.0%",
+                        "regional_total_sales": 14528396
+                    },
+                    "North America": {
+                        "dominance_fuel": "Hybrid",
+                        "dominance_share": "26.2%",
+                        "nev_sales_share": "51.8%",
+                        "regional_total_sales": 14301712
+                    },
+                    "South America": {
+                        "dominance_fuel": "Diesel",
+                        "dominance_share": "25.3%",
+                        "nev_sales_share": "49.7%",
+                        "regional_total_sales": 13643807
+                    }
+                },
+                "all_fuel_types": [
+                    "Diesel",
+                    "Petrol",
+                    "Electric",
+                    "Hybrid"
+                ],
+                "new_energy_types": [
+                    "Electric",
+                    "Hybrid"
+                ],
+                "sales_data_records": [
+                    {
+                        "region": "Africa",
+                        "fuel_type": "Diesel",
+                        "total_sales": 3459892,
+                        "regional_total_sales": 14007790,
+                        "market_share": 24.69977062762934
+                    },
+                    {
+                        "region": "Africa",
+                        "fuel_type": "Electric",
+                        "total_sales": 3397880,
+                        "regional_total_sales": 14007790,
+                        "market_share": 24.257074099483216
+                    },
+                    {
+                        "region": "Africa",
+                        "fuel_type": "Hybrid",
+                        "total_sales": 3552476,
+                        "regional_total_sales": 14007790,
+                        "market_share": 25.360717143817833
+                    },
+                    {
+                        "region": "Africa",
+                        "fuel_type": "Petrol",
+                        "total_sales": 3597542,
+                        "regional_total_sales": 14007790,
+                        "market_share": 25.682438129069613
+                    },
+                    {
+                        "region": "Asia",
+                        "fuel_type": "Diesel",
+                        "total_sales": 3663963,
+                        "regional_total_sales": 13865269,
+                        "market_share": 26.42547360602957
+                    },
+                    {
+                        "region": "Asia",
+                        "fuel_type": "Electric",
+                        "total_sales": 3326051,
+                        "regional_total_sales": 13865269,
+                        "market_share": 23.98836257702609
+                    },
+                    {
+                        "region": "Asia",
+                        "fuel_type": "Hybrid",
+                        "total_sales": 3697983,
+                        "regional_total_sales": 13865269,
+                        "market_share": 26.67083487525558
+                    },
+                    {
+                        "region": "Asia",
+                        "fuel_type": "Petrol",
+                        "total_sales": 3177272,
+                        "regional_total_sales": 13865269,
+                        "market_share": 22.915328941688763
+                    },
+                    {
+                        "region": "Europe",
+                        "fuel_type": "Diesel",
+                        "total_sales": 3480559,
+                        "regional_total_sales": 14565989,
+                        "market_share": 23.89510935371433
+                    },
+                    {
+                        "region": "Europe",
+                        "fuel_type": "Electric",
+                        "total_sales": 3787307,
+                        "regional_total_sales": 14565989,
+                        "market_share": 26.00102883504855
+                    },
+                    {
+                        "region": "Europe",
+                        "fuel_type": "Hybrid",
+                        "total_sales": 3673653,
+                        "regional_total_sales": 14565989,
+                        "market_share": 25.220759125933707
+                    },
+                    {
+                        "region": "Europe",
+                        "fuel_type": "Petrol",
+                        "total_sales": 3624470,
+                        "regional_total_sales": 14565989,
+                        "market_share": 24.883102685303417
+                    },
+                    {
+                        "region": "Middle East",
+                        "fuel_type": "Diesel",
+                        "total_sales": 3570835,
+                        "regional_total_sales": 14528396,
+                        "market_share": 24.578315458912325
+                    },
+                    {
+                        "region": "Middle East",
+                        "fuel_type": "Electric",
+                        "total_sales": 3644552,
+                        "regional_total_sales": 14528396,
+                        "market_share": 25.085714899291016
+                    },
+                    {
+                        "region": "Middle East",
+                        "fuel_type": "Hybrid",
+                        "total_sales": 3616498,
+                        "regional_total_sales": 14528396,
+                        "market_share": 24.892617189123975
+                    },
+                    {
+                        "region": "Middle East",
+                        "fuel_type": "Petrol",
+                        "total_sales": 3696511,
+                        "regional_total_sales": 14528396,
+                        "market_share": 25.443352452672684
+                    },
+                    {
+                        "region": "North America",
+                        "fuel_type": "Diesel",
+                        "total_sales": 3337899,
+                        "regional_total_sales": 14301712,
+                        "market_share": 23.339156878561113
+                    },
+                    {
+                        "region": "North America",
+                        "fuel_type": "Electric",
+                        "total_sales": 3660030,
+                        "regional_total_sales": 14301712,
+                        "market_share": 25.59155155690452
+                    },
+                    {
+                        "region": "North America",
+                        "fuel_type": "Hybrid",
+                        "total_sales": 3752979,
+                        "regional_total_sales": 14301712,
+                        "market_share": 26.24146675586811
+                    },
+                    {
+                        "region": "North America",
+                        "fuel_type": "Petrol",
+                        "total_sales": 3550804,
+                        "regional_total_sales": 14301712,
+                        "market_share": 24.827824808666264
+                    },
+                    {
+                        "region": "South America",
+                        "fuel_type": "Diesel",
+                        "total_sales": 3449637,
+                        "regional_total_sales": 13643807,
+                        "market_share": 25.283537065571217
+                    },
+                    {
+                        "region": "South America",
+                        "fuel_type": "Electric",
+                        "total_sales": 3366547,
+                        "regional_total_sales": 13643807,
+                        "market_share": 24.674542816385486
+                    },
+                    {
+                        "region": "South America",
+                        "fuel_type": "Hybrid",
+                        "total_sales": 3419081,
+                        "regional_total_sales": 13643807,
+                        "market_share": 25.059581977376254
+                    },
+                    {
+                        "region": "South America",
+                        "fuel_type": "Petrol",
+                        "total_sales": 3408542,
+                        "regional_total_sales": 13643807,
+                        "market_share": 24.982338140667043
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "section_title": "Product Competitiveness & Consumer Preference Insights",
+        "subsection_title": "Ranking of Model Sales Volume",
+        "analysis summary": {
+            "insight_key": "Model_Performance_Sales_Volume",
+            "description": "Horizontal bar chart ranking car models by total sales volume. Analysis focuses on identifying portfolio risk, market concentration, and 'long-tail' contribution.",
+            "findings": {
+                "top_models_by_volume": [
+                    "7 Series",
+                    "X6",
+                    "M5"
+                ],
+                "bottom_models_by_volume": [
+                    "M3",
+                    "i3",
+                    "X5"
+                ],
+                "concentration_ratio_top_n_volume": "28.4%",
+                "concentration_N_models": 3,
+                "long_tail_models_count": 8,
+                "long_tail_volume_share": "71.6%",
+                "model_sales_volume_ranking": {
+                    "7 Series": 8177442,
+                    "X6": 8099240,
+                    "M5": 7807649,
+                    "3 Series": 7741253,
+                    "X3": 7663941,
+                    "i8": 7633222,
+                    "X1": 7628104,
+                    "5 Series": 7596548,
+                    "M3": 7571963,
+                    "i3": 7544460,
+                    "X5": 7449141
+                },
+                "sales_unit": "units"
+            }
+        }
+    },
+    {
+        "section_title": "Product Competitiveness & Consumer Preference Insights",
+        "subsection_title": "Impact of Mileage on Sales Volume",
+        "analysis summary": {
+            "insight_key": "Mileage_Impact_Analysis_Segmentation",
+            "description": "Bar chart showing how different mileage ranges impact used-car sales. Analysis focuses on quantifying the market share and dominance of key mileage segments.",
+            "findings": {
+                "highest_sales_group": "High Mileage",
+                "highest_sales_share": "40.7%",
+                "lowest_sales_group": "Low Mileage",
+                "sales_disparity_ratio_highest_to_lowest": "2.1x",
+                "segment_performance": [
+                    {
+                        "mileage_group": "Low Mileage",
+                        "total_sales": 16607496,
+                        "market_share": "19.6%"
+                    },
+                    {
+                        "mileage_group": "Mid Mileage",
+                        "total_sales": 33728749,
+                        "market_share": "39.7%"
+                    },
+                    {
+                        "mileage_group": "High Mileage",
+                        "total_sales": 34576718,
+                        "market_share": "40.7%"
+                    }
+                ],
+                "total_sales_volume": 84912963,
+                "sales_unit": "units"
+            }
+        }
+    },
+    {
+        "section_title": "Product Competitiveness & Consumer Preference Insights",
+        "subsection_title": "Impact of Exterior Color on Sales and Hot Market Colors",
+        "analysis summary": {
+            "insight_key": "Color_Sales_Preference_Concentration",
+            "description": "Bar chart showing aggregated total sales for each vehicle color. Analysis focuses on quantifying the market preference concentration and sales disparity between color options.",
+            "findings": {
+                "top_color": "Black",
+                "top_color_sales_volume": 14450883,
+                "top_color_market_share": "17.0%",
+                "concentration_n": 3,
+                "top_n_concentration_ratio": "50.7%",
+                "least_color": "Grey",
+                "preference_disparity_ratio_top_to_bottom": "1.1x",
+                "color_sales_with_share": [
+                    {
+                        "color": "Black",
+                        "total_sales": 14450883,
+                        "market_share": "17.0%"
+                    },
+                    {
+                        "color": "Red",
+                        "total_sales": 14298208,
+                        "market_share": "16.8%"
+                    },
+                    {
+                        "color": "White",
+                        "total_sales": 14273392,
+                        "market_share": "16.8%"
+                    },
+                    {
+                        "color": "Blue",
+                        "total_sales": 14163128,
+                        "market_share": "16.7%"
+                    },
+                    {
+                        "color": "Silver",
+                        "total_sales": 14036468,
+                        "market_share": "16.5%"
+                    },
+                    {
+                        "color": "Grey",
+                        "total_sales": 13690884,
+                        "market_share": "16.1%"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "section_title": "Product Competitiveness & Consumer Preference Insights",
+        "subsection_title": "Demand Structure of Engine Size",
+        "analysis summary": {
+            "insight_key": "EngineSize_Sales_Distribution_Concentration",
+            "description": "Bar chart comparing sales performance across engine-size categories. Analysis focuses on identifying the **mainstream displacement market segment** and quantifying sales concentration.",
+            "definition": {
+                "<=1.5L": "small engines",
+                "1.6–2.0L": "compact mainstream engines",
+                "2.1–3.0L": "mid-size or premium engines",
+                "3.1–4.0L": "high-displacement engines",
+                ">4.0L": "performance or luxury engines"
+            },
+            "findings": {
+                "mainstream_engine_bin": "3.1–4.0L",
+                "mainstream_bin_market_share": "29.1%",
+                "concentration_n": 2,
+                "top_n_concentration_ratio": "58.0%",
+                "least_popular_bin": "<=1.5L",
+                "sales_disparity_ratio_top_to_bottom": "21.1x",
+                "engine_bin_sales_with_share": [
+                    {
+                        "category": "3.1–4.0L",
+                        "total_sales": 24674355,
+                        "market_share": "29.1%"
+                    },
+                    {
+                        "category": "2.1–3.0L",
+                        "total_sales": 24546679,
+                        "market_share": "28.9%"
+                    },
+                    {
+                        "category": ">4.0L",
+                        "total_sales": 22608551,
+                        "market_share": "26.6%"
+                    },
+                    {
+                        "category": "1.6–2.0L",
+                        "total_sales": 11915267,
+                        "market_share": "14.0%"
+                    },
+                    {
+                        "category": "<=1.5L",
+                        "total_sales": 1168111,
+                        "market_share": "1.4%"
+                    }
+                ]
+            }
+        }
+    },
+    {
+        "section_title": "Sales Forecast and Strategic Segment Growth (2025)",
+        "subsection_title": "Strategic Top Segment Prediction (2024 Actual vs 2025 Forecast)",
+        "analysis summary": {
+            "insight_key": "Sales_Forecast_2025_Top3_Segments",
+            "description": "CatBoost-generated time-series predictions for 2025 sales volume. The analysis highlights the forecasted market outlook, evaluates model segments across key dimensions. The accompanying tables present the forecasted Top 3 categories within each dimension (Model, Region, Fuel Type, Transmission, and Color), providing a clear view of which sub-segments are expected to lead sales growth in 2025.",
+            "findings": {
+                "model_validation_metrics_2024": {
+                    "MAE": 374.76699764144945,
+                    "RMSE": 706.7237295868077,
+                    "MedianAE": 225.12660711613444,
+                    "MAPE": 12.755739971569122,
+                    "R2": 0.9842291416487343,
+                    "MAE_pct": 4.464103238762048,
+                    "RMSE_pct": 8.418264441675401,
+                    "MedianAE_pct": 2.6816353154984816
+                },
+                "forecast_period": "2025 vs 2024 Actual",
+                "total_sales_2024_actual": 17527854.0,
+                "total_sales_2025_predicted": 19529866.560583048,
+                "overall_growth_pct": "11.42%",
+                "segment_with_highest_2025_sales": {
+                    "type": "Transmission",
+                    "name": "Manual",
+                    "predicted_sales": 9911151.904029198
+                },
+                "segment_with_highest_growth_pct": {
+                    "type": "Model",
+                    "name": "X1",
+                    "growth_pct": "24.60%"
+                },
+                "top3_segment_comparison_records": [
+                    {
+                        "segment_type": "Model",
+                        "segment_name": "X6",
+                        "sales_2024": 1836396,
+                        "sales_2025": 1960037.3193304213,
+                        "growth_abs": 123641.31933042128,
+                        "growth_pct": 6.732824474155971
+                    },
+                    {
+                        "segment_type": "Model",
+                        "segment_name": "7 Series",
+                        "sales_2024": 1686209,
+                        "sales_2025": 1889559.647397024,
+                        "growth_abs": 203350.6473970241,
+                        "growth_pct": 12.05963480191507
+                    },
+                    {
+                        "segment_type": "Model",
+                        "segment_name": "X1",
+                        "sales_2024": 1493734,
+                        "sales_2025": 1861146.8162625039,
+                        "growth_abs": 367412.81626250385,
+                        "growth_pct": 24.59693735715354
+                    },
+                    {
+                        "segment_type": "Region",
+                        "segment_name": "Europe",
+                        "sales_2024": 3033044,
+                        "sales_2025": 3418326.1741396454,
+                        "growth_abs": 385282.1741396454,
+                        "growth_pct": 12.702821790242588
+                    },
+                    {
+                        "segment_type": "Region",
+                        "segment_name": "Middle East",
+                        "sales_2024": 2943091,
+                        "sales_2025": 3342179.4009671104,
+                        "growth_abs": 399088.4009671104,
+                        "growth_pct": 13.560178770113138
+                    },
+                    {
+                        "segment_type": "Region",
+                        "segment_name": "Asia",
+                        "sales_2024": 3080909,
+                        "sales_2025": 3246768.7221294623,
+                        "growth_abs": 165859.7221294623,
+                        "growth_pct": 5.383467091350711
+                    },
+                    {
+                        "segment_type": "Fuel Type",
+                        "segment_name": "Hybrid",
+                        "sales_2024": 4647195,
+                        "sales_2025": 5003312.823596503,
+                        "growth_abs": 356117.82359650265,
+                        "growth_pct": 7.663070381090155
+                    },
+                    {
+                        "segment_type": "Fuel Type",
+                        "segment_name": "Diesel",
+                        "sales_2024": 4356475,
+                        "sales_2025": 4888897.5484937,
+                        "growth_abs": 532422.5484937001,
+                        "growth_pct": 12.221407181120059
+                    },
+                    {
+                        "segment_type": "Fuel Type",
+                        "segment_name": "Electric",
+                        "sales_2024": 4290700,
+                        "sales_2025": 4832576.872358184,
+                        "growth_abs": 541876.8723581843,
+                        "growth_pct": 12.629101833224981
+                    },
+                    {
+                        "segment_type": "Transmission",
+                        "segment_name": "Manual",
+                        "sales_2024": 8892441,
+                        "sales_2025": 9911151.904029198,
+                        "growth_abs": 1018710.904029198,
+                        "growth_pct": 11.455919741600736
+                    },
+                    {
+                        "segment_type": "Transmission",
+                        "segment_name": "Automatic",
+                        "sales_2024": 8635413,
+                        "sales_2025": 9618714.656553853,
+                        "growth_abs": 983301.6565538533,
+                        "growth_pct": 11.3868515212168
+                    },
+                    {
+                        "segment_type": "Color",
+                        "segment_name": "Red",
+                        "sales_2024": 2861725,
+                        "sales_2025": 3379653.029526027,
+                        "growth_abs": 517928.0295260269,
+                        "growth_pct": 18.09845563518601
+                    },
+                    {
+                        "segment_type": "Color",
+                        "segment_name": "Black",
+                        "sales_2024": 2979077,
+                        "sales_2025": 3343637.6082511647,
+                        "growth_abs": 364560.60825116467,
+                        "growth_pct": 12.237367756898013
+                    },
+                    {
+                        "segment_type": "Color",
+                        "segment_name": "Blue",
+                        "sales_2024": 3048927,
+                        "sales_2025": 3311630.216775969,
+                        "growth_abs": 262703.21677596914,
+                        "growth_pct": 8.61625144767222
+                    }
+                ],
+                "sales_unit": "units"
+            }
+        }
+    },
+    {
+        "section_title": "Summary",
+        "subsection_title": null,
+        "analysis summary": null
+    }
+]
